@@ -21,3 +21,7 @@
 @import url('./pages/overview.css');
 @import url('./pages/pots.css');
 @import url('./pages/transactions.css');
+
+.page-heading{
+    padding: var(--space-100) 0;
+}

@@ -1,0 +1,30 @@
+.pie-chart-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.transparent-cricle{
+    background-color: rgba(250, 250, 250, 0.25);
+    height: 187.5px;
+    width: 187.5px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.white-cirlce{
+    background-color: var(--color-white);
+    height: 162px;
+    width: 162px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-100);
+}

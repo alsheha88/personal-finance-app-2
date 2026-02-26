@@ -1,0 +1,14 @@
+.input-wrapper{
+    position: relative;
+}
+.search{
+    padding: var(--space-150) var(--space-250);
+    border-radius: var(--border-radius-secondary);
+    border: 0.0625rem solid var(--color-grey-500);
+}
+.input-wrapper button{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: var(--space-250);
+}

@@ -1,0 +1,15 @@
+.btn{
+    padding: var(--space-200);
+    border-radius: var(--border-radius-secondary);
+    display: flex;
+    align-items: center;
+}
+.btn--light{
+    border: 1px solid var(--color-grey-500);
+    gap: var(--space-200);
+}
+.btn--dark{
+    background-color: var(--color-grey-900);
+    color: var(--color-white);
+    gap: var(--space-200);
+}

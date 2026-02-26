@@ -58,199 +58,179 @@
           Recurring Bills
         </a>
       </div>
-      <button><img src="./assets/images/icon-minimize-menu.svg"
-          alt="Minimize Menu">Minimize Menu</button>
+      <button><img src="./assets/images/icon-minimize-menu.svg" alt="Minimize Menu">Minimize Menu</button>
     </nav>
     <section>
       <div>
-        <div>
-          <h1>Transactions</h1>
-        </div>
-        <div>
-          <div>
-            <div>
-              <input type="text" placeholder="Search Transaction">
-              <button><img src="./assets/images/icon-search.svg" alt="search"></button>
-            </div>
-            <div>
+        <h1>Transactions</h1>
+      </div>
+      <div class="card transactions-content">
+        <div class="search-dropdown-wrapper">
+          <div class="input-wrapper">
+            <input class="search" type="text" placeholder="Search Transaction">
+            <button><img src="./assets/images/icon-search.svg" alt="search"></button>
+          </div>
+          <div class="dropdowns">
+            <div class="dropdown-wrapper">
               <small>Sort by</small>
               <div>
-                <div>
-                  <button>
+                <div class="dropdown-container">
+                  <button class="dropdown-btn">
                     <span>Latest</span>
                     <img src="./assets/images/icon-caret-down.svg" alt="">
                   </button>
-                  <ul>
-                    <li>Latest</li>
-                    <li>Oldest</li>
-                    <li>A to Z</li>
-                    <li>Z to A</li>
-                    <li>Highest</li>
-                    <li>Lowest</li>
+                  <ul class="dropdown-list">
+                    <li class="dropdown-item">Latest</li>
+                    <li class="dropdown-item">Oldest</li>
+                    <li class="dropdown-item">A to Z</li>
+                    <li class="dropdown-item">Z to A</li>
+                    <li class="dropdown-item">Highest</li>
+                    <li class="dropdown-item">Lowest</li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div>
+            <div class="dropdown-wrapper">
               <small>Category</small>
               <div>
-                <div>
-                  <button>
+                <div class="dropdown-container">
+                  <button class="dropdown-btn">
                     <span>All Transactions</span>
                     <img src="./assets/images/icon-caret-down.svg" alt="">
                   </button>
-                  <ul>
-                    <li>All Transactions</li>
-                    <li>Entertainment</li>
-                    <li>Bills</li>
-                    <li>Groceries</li>
-                    <li>Dining Out</li>
-                    <li>Personal Care</li>
-                    <li>Education</li>
-                    <li>Lifestyle</li>
-                    <li>Shopping</li>
-                    <li>General</li>
+                  <ul class="dropdown-list">
+                    <li class="dropdown-item">All Transactions</li>
+                    <li class="dropdown-item">Entertainment</li>
+                    <li class="dropdown-item">Bills</li>
+                    <li class="dropdown-item">Groceries</li>
+                    <li class="dropdown-item">Dining Out</li>
+                    <li class="dropdown-item">Personal Care</li>
+                    <li class="dropdown-item">Education</li>
+                    <li class="dropdown-item">Lifestyle</li>
+                    <li class="dropdown-item">Shopping</li>
+                    <li class="dropdown-item">General</li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
-          <div>
-            <div>
-              <p>Recipient/Sender</p>
-              <p>Category</p>
-              <p>Transaction Date</p>
-              <p>Amount</p>
+        </div>
+        <div class="table-heading">
+          <small>Recipient/Sender</small>
+          <small>Category</small>
+          <small>Transaction Date</small>
+          <small>Amount</small>
+        </div>
+        <!-- Add transaction data -->
+        <div>
+          <div class="table-row">
+            <div class="image-title">
+              <img src="" alt="">
+              <h4>Emma Richardson</h4>
             </div>
-            <!-- Add transaction data -->
             <div>
-              <div>
-                <div>
-                  <img src="" alt="">
-                  <p>Emma Richardson</p>
-                </div>
-                <div>
-                  General
-                </div>
-                <div>
-                  19 Aug 2024
-                </div>
-                <div>
-                  <h5>+$75.50</h5>
-                  <small>19 Aug 2024</small>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <img src="" alt="">
-                  <p>Emma Richardson</p>
-                </div>
-                <div>
-                  General
-                </div>
-                <div>
-                  19 Aug 2024
-                </div>
-                <div>
-                  <h5>+$75.50</h5>
-                  <small>19 Aug 2024</small>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <img src="" alt="">
-                  <p>Emma Richardson</p>
-                </div>
-                <div>
-                  General
-                </div>
-                <div>
-                  19 Aug 2024
-                </div>
-                <div>
-                  <h5>+$75.50</h5>
-                  <small>19 Aug 2024</small>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <img src="" alt="">
-                  <p>Emma Richardson</p>
-                </div>
-                <div>
-                  General
-                </div>
-                <div>
-                  19 Aug 2024
-                </div>
-                <div>
-                  <h5>+$75.50</h5>
-                  <small>19 Aug 2024</small>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <img src="" alt="">
-                  <p>Emma Richardson</p>
-                </div>
-                <div>
-                  General
-                </div>
-                <div>
-                  19 Aug 2024
-                </div>
-                <div>
-                  <h5>+$75.50</h5>
-                  <small>19 Aug 2024</small>
-                </div>
-              </div>
-              <div class="transaction-item">
-                <div class="image-title">
-                  <img src="" alt="">
-                  <p class="text-preset-4-bold">Emma Richardson</p>
-                </div>
-                <div class="category-box text-preset-5 color-grey-500">
-                  General
-                </div>
-                <div class="transaction-date-box text-preset-5 color-grey-500">
-                  19 Aug 2024
-                </div>
-                <div class="value-date flex flex-col gap-100">
-                  <h5>+$75.50</h5>
-                  <small>19 Aug 2024</small>
-                </div>
-              </div>
-              <div class="transaction-item">
-                <div class="image-title">
-                  <img src="" alt="">
-                  <p class="text-preset-4-bold">Emma Richardson</p>
-                </div>
-                <div class="category-box text-preset-5 color-grey-500">
-                  General
-                </div>
-                <div class="transaction-date-box text-preset-5 color-grey-500">
-                  19 Aug 2024
-                </div>
-                <div class="value-date flex flex-col gap-100">
-                  <h5>+$75.50</h5>
-                  <small>19 Aug 2024</small>
-                </div>
-              </div>
+              <small>General</small>
+            </div>
+            <div>
+              <small>19 Aug 2024</small>
+            </div>
+            <div>
+              <h4>+$75.50</h4>
+              <small>19 Aug 2024</small>
             </div>
           </div>
-          <div class="pagination">
-            <button id="previous"><img src="./assets/images/icon-caret-left.svg" alt=""> Prev</button>
-            <div class="page-number">
-              <button>1</button>
-              <button>1</button>
-              <button>1</button>
-              <button>1</button>
+          <div class="table-row">
+            <div class="image-title">
+              <img src="" alt="">
+              <h4>Emma Richardson</h4>
             </div>
-            <button id="next"> Next <img src="./assets/images/icon-caret-right.svg" alt=""></button>
+            <div>
+              <small>General</small>
+            </div>
+            <div>
+              <small>19 Aug 2024</small>
+            </div>
+            <div>
+              <h4>+$75.50</h4>
+              <small>19 Aug 2024</small>
+            </div>
           </div>
+           <div class="table-row">
+            <div class="image-title">
+              <img src="" alt="">
+              <h4>Emma Richardson</h4>
+            </div>
+            <div>
+              <small>General</small>
+            </div>
+            <div>
+              <small>19 Aug 2024</small>
+            </div>
+            <div>
+              <h4>+$75.50</h4>
+              <small>19 Aug 2024</small>
+            </div>
+          </div>
+           <div class="table-row">
+            <div class="image-title">
+              <img src="" alt="">
+              <h4>Emma Richardson</h4>
+            </div>
+            <div>
+              <small>General</small>
+            </div>
+            <div>
+              <small>19 Aug 2024</small>
+            </div>
+            <div>
+              <h4>+$75.50</h4>
+              <small>19 Aug 2024</small>
+            </div>
+          </div>
+           <div class="table-row">
+            <div class="image-title">
+              <img src="" alt="">
+              <h4>Emma Richardson</h4>
+            </div>
+            <div>
+              <small>General</small>
+            </div>
+            <div>
+              <small>19 Aug 2024</small>
+            </div>
+            <div>
+              <h4>+$75.50</h4>
+              <small>19 Aug 2024</small>
+            </div>
+          </div>
+           <div class="table-row">
+            <div class="image-title">
+              <img src="" alt="">
+              <h4>Emma Richardson</h4>
+            </div>
+            <div>
+              <small>General</small>
+            </div>
+            <div>
+              <small>19 Aug 2024</small>
+            </div>
+            <div>
+              <h4>+$75.50</h4>
+              <small>19 Aug 2024</small>
+            </div>
+          </div> 
         </div>
-
+        <div class="btn-row">
+          <button class="btn btn--light"><img src="./assets/images/icon-caret-left.svg" alt=""> <span>Prev</span></button>
+          <div class="pagination-wrapper">
+            <button class="btn btn--light"><span>1</span></button>
+            <button class="btn btn--light"><span>2</span></button>
+            <button class="btn btn--light"><span>3</span></button>
+            <button class="btn btn--light"><span>4</span></button>
+          </div>
+          <button class="btn btn--light"> <span>Next</span> <img src="./assets/images/icon-caret-right.svg" alt=""></button>
         </div>
+      </div>
     </section>
   </main>
 </body>
