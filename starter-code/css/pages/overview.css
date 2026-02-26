@@ -1,0 +1,8 @@
+.summary-cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-300);
+}
+.summary-cards > div:first-child h2, .summary-cards > div:first-child p{
+    color: var(--color-white);
+}

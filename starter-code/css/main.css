@@ -1,0 +1,23 @@
+@import url('./components/buttons.css');
+@import url('./components/cards.css');
+@import url('./components/dropdown.css');
+@import url('./components/form.css');
+@import url('./components/input.css');
+@import url('./components/modals.css');
+@import url('./components/navbar.css');
+@import url('./components/piechart.css');
+
+
+@import url('./reset.css');
+@import url('./tokens.css');
+@import url('./utilities.css');
+@import url('./layout.css');
+@import url('./typography.css');
+
+
+@import url('./pages/bills.css');
+@import url('./pages/budgets.css');
+@import url('./pages/login.css');
+@import url('./pages/overview.css');
+@import url('./pages/pots.css');
+@import url('./pages/transactions.css');

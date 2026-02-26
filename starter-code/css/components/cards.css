@@ -1,0 +1,13 @@
+.card{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-primary);
+    padding: var(--space-400);
+}
+.card--compact{
+    padding: var(--space-300);
+}
+.card__dark{
+    background-color: var(--color-grey-900);
+}

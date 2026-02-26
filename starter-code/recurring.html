@@ -6,15 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="./css/main.css">
 
   <title>Frontend Mentor | Personal finance app - Recurring bills</title>
 </head>
 
 <body>
-  <main class="wrapper">
-    <aside>
-      <img class="logo" src="./assets/images/logo-large.svg" alt="logo">
-      <div class="links">
+  <main>
+    <nav>
+      <div class="logo-wrapper">
+        <img src="./assets/images/logo-large.svg" alt="logo">
+      </div>
+      <div class="nav-links">
         <a href="./index.html">
           <svg fill="none" height="19" viewBox="0 0 18 19" width="18" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -56,87 +59,90 @@
           Recurring Bills
         </a>
       </div>
-      <button><img src="./assets/images/icon-minimize-menu.svg" alt="Minimize Menu">Minimize Menu</button>
-    </aside>
-    <section class="recurring-content">
-      <div class="recurring-overview-card">
-        <div class="overview-card-heading">
-          <h1>Recurring</h1>
-        </div>
-        <div class="recurring-transaction-table">
-          <div class="input-fields">
-            <div class="search-box">
-              <input type="text" class="search" data-value="recurring" placeholder="Search bills">
-              <img src="./assets/images/icon-search.svg" alt="search">
+      <button><img src="./assets/images/icon-minimize-menu.svg" alt="Minimize Menu">Minimize
+        Menu</button>
+    </nav>
+    <section>
+      <div>
+        <h1>Recurring</h1>
+      </div>
+      <div>
+        <div>
+          <div>
+            <div>
+              <img src="./assets/images/icon-recurring-bills.svg" alt="">
+              <div>
+                <small>Total Bills</small>
+                <h2>123</h2>
+              </div>
             </div>
-            <div class="filter-by-date">
-              <small>Sort by</small>
-              <div class="filter">
-                <div class="category-filter">
-                  <button id="sort">
-                    <span id="selectedCategory">All Transactions</span>
-                    <img src="./assets/images/icon-caret-down.svg" alt="">
-                  </button>
-                  <ul>
-                    <li data-category="All">All Transactions</li>
-                    <li data-category="Entertainment">Entertainment</li>
-                    <li data-category="Bills">Bills</li>
-                    <li data-category="Groceries">Groceries</li>
-                    <li data-category="Dining">Dining Out</li>
-                    <li data-category="Personal">Personal Care</li>
-                    <li data-category="Education">Education</li>
-                    <li data-category="Lifestyle">Lifestyle</li>
-                    <li data-category="Shopping">Shopping</li>
-                    <li data-category="General">General</li>
-                  </ul>
+            <div>
+              <h2>Summary</h2>
+              <div>
+                <small>Paid Bills</small>
+                <h4>2 (123)</h4>
+              </div>
+              <div>
+                <small>Total Upcoming</small>
+                <h4>2 (123)</h4>
+              </div>
+              <div>
+                <small>Due Soon</small>
+                <h4>2 (123)</h4>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div>
+              <div>
+                <input type="text" placeholder="Search bills">
+                <button><img src="./assets/images/icon-search.svg" alt="search"></button>
+              </div>
+              <div>
+                <small>Sort by</small>
+                <div>
+                  <div>
+                    <button>
+                      <span>Latest</span>
+                      <img src="./assets/images/icon-caret-down.svg" alt="">
+                    </button>
+                    <ul>
+                      <li>Latest</li>
+                      <li>Oldest</li>
+                      <li>A to Z</li>
+                      <li>Z to A</li>
+                      <li>Highest</li>
+                      <li>Lowest</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="transactions-overview-details">
-              <div class="table-heading">
-                <p>Bill Title</p>
-                <p>Due Date</p>
-                <p>Amount</p>
-              </div>
+            <div>
+              <p>Bill Title</p>
+              <p>Due Date</p>
+              <p>Amount</p>
+            </div>
+            <div>
               <!-- Add recurring data -->
-              <div class="recurring-items">
-                <div class="recurring-item">
-                  <div class="image-title">
+              <div>
+                <div>
+                  <div>
                     <img src="" alt="">
                     <p>Spark Electric Solutions</p>
                   </div>
-                  <div class="recurring-date-box">
+                  <div>
                     Monthly - 2nd
                   </div>
-                  <div class="amount">
+                  <div>
                     <h5>+$75.50</h5>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="total-bills-card">
-            <img src="./assets/images/icon-recurring-bills.svg" alt="">
-            <div class="total-bills">
-              <small>Total Bills</small>
-              <h2>123</h2>
-            </div>
-          </div>
-          <div class="summary-card">
-            <h2>Summary</h2>
-            <div class="summary-item">
-              <small>Paid Bills</small>
-              <h4>2 (123)</h4>
-            </div>
-            <div class="summary-item">
-              <small>Total Upcoming</small>
-              <h4>2 (123)</h4>
-            </div>
-            <div class="summary-item">
-              <small>Due Soon</small>
-              <h4>2 (123)</h4>
-            </div>
-          </div>
+          
+        </div>
     </section>
   </main>
 </body>

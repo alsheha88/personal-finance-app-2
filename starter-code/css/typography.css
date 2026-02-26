@@ -1,0 +1,32 @@
+
+body{
+    font-family: var(--font-family);
+}
+
+h1, h2{
+    font-size: var(--text-preset-1);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-grey-900);
+}
+
+h3{
+    font-size: var(--text-preset-2);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-grey-900);
+}
+h4{
+    font-size: var(--text-preset-4);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-grey-900);
+}
+
+p{
+   font-size: var(--text-preset-4);
+    font-weight: var(--font-weight-regular); 
+}
+
+small{
+    font-size: var(--text-preset-5);
+    font-weight: var(--font-weight-regular); 
+    color: var(--color-grey-500);
+}
