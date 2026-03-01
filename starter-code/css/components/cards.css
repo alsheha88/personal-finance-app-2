@@ -11,3 +11,10 @@
 .card__dark{
     background-color: var(--color-grey-900);
 }
+
+@media (max-width: 800px) {
+
+}
+@media (max-width: 500px) {
+
+}

@@ -19,7 +19,11 @@ h4{
     font-weight: var(--font-weight-bold);
     color: var(--color-grey-900);
 }
-
+h5{
+    font-size: var(--text-preset-3);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-grey-900);
+}
 p{
    font-size: var(--text-preset-4);
     font-weight: var(--font-weight-regular); 
@@ -29,4 +33,17 @@ small{
     font-size: var(--text-preset-5);
     font-weight: var(--font-weight-regular); 
     color: var(--color-grey-500);
+}
+
+label{
+    font-size: var(--text-preset-5);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-grey-500);
+}
+
+@media (max-width: 800px) {
+
+}
+@media (max-width: 500px) {
+
 }

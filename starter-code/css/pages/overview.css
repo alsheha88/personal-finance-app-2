@@ -31,10 +31,12 @@
     justify-content: space-between;
 }
 
-.overview-section-heading button{
+.overview-section-heading a{
     display: flex;
     align-items: center;
     gap: var(--space-150);
+    color: var(--color-grey-500);
+    font-size: var(--text-preset-4);
 }
 /* Pots Overview */
 .pots-overview{
@@ -59,8 +61,10 @@
     gap: var(--space-200);
 }
 .pots-category{
-    padding-left: var(--space-200);
-    border-left: 3px solid var(--color-beige-500);
+    overflow: hidden;
+    display: flex;
+    gap: var(--space-200);
+    
 }
 /* Budget Overview */
 .budgets-overview{
@@ -74,8 +78,8 @@
     gap: var(--space-200);
 }
 .budget-badge{
-    padding-left: var(--space-200);
-    border-left: 3px solid var(--color-beige-500);
+    display: flex;
+    gap: var(--space-200);
 }
 /* Recurring Bills Overview */
 .bills-overview{
@@ -106,4 +110,37 @@
 }
 .transaction-item:last-child{
     border-bottom: none;
+}
+
+@media (max-width: 1200px){
+    .overview-cards{
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .overview-cards{
+        gap: var(--space-200);
+    }
+    .overview-card, .overview-card--compact{
+        padding: var(--space-300) var(--space-250);
+    }
+    .summary-cards{
+        grid-template-columns: 1fr;
+        gap: var(--space-150);
+    }
+    .summary-cards div{
+        padding: var(--space-250);
+    }
+    .pots-overview{
+        grid-template-columns: 1fr;
+    }
+    .budgets-overview{
+        flex-direction: column;
+    }
+    .budgets-badges-wrapper{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
 }

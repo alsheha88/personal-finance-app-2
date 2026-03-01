@@ -1,0 +1,30 @@
+.modal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    width: 100dvw;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+}
+.show-modal{
+    opacity: 1;
+    pointer-events: visible;
+}
+.modal__card{
+    display: grid;
+    gap: var(--space-250);
+    width: min(31rem, 90%);
+}
+@media (max-width: 800px) {
+
+}
+@media (max-width: 500px) {
+
+}

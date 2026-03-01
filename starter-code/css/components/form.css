@@ -1,0 +1,49 @@
+.form__wrapper{
+    display: grid;
+    gap: var(--space-200);
+
+}
+.modal__input{
+    display: grid;
+    gap: var(--space-50);
+}
+
+.form__btn{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.form__theme{
+    display: flex;
+    align-items: center;
+    gap: var(--space-150);
+}
+.color-dot{
+    height: 1rem;
+    width: 1rem;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: var(--color-green);
+}
+li[data-color='green'] span{background-color: var(--color-green);}
+li[data-color='yellow'] span{background-color: var(--color-yellow);}
+li[data-color='cyan'] span{background-color: var(--color-cyan);}
+li[data-color='navy'] span{background-color: var(--color-navy);}
+li[data-color='red'] span{background-color: var(--color-red);}
+li[data-color='purple'] span{background-color: var(--color-purple);}
+li[data-color='turquoise'] span{background-color: var(--color-turquoise);}
+li[data-color='brown'] span{background-color: var(--color-brown);}
+li[data-color='magneta'] span{background-color: var(--color-magenta);}
+li[data-color='blue'] span{background-color: var(--color-blue);}
+li[data-color='navy-grey'] span{background-color: var(--color-navy-grey);}
+li[data-color='army-green'] span{background-color: var(--color-army-green);}
+li[data-color='pink'] span{background-color: var(--color-pink);}
+li[data-color='gold'] span{background-color: var(--color-gold);}
+li[data-color='orange'] span{background-color: var(--color-orange);}
+
+@media (max-width: 800px) {
+
+}
+@media (max-width: 500px) {
+
+}

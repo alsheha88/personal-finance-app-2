@@ -3,3 +3,53 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.pots-card-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pots-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-300);
+}
+
+.pots-card{
+    display: grid;
+    gap: var(--space-400)
+}
+/* buttons wrapper for pots card */
+.pots-card-btns{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-200);
+}
+.pots-btns{
+    background-color: var(--color-beige-100);
+    font-size: var(--text-preset-4);
+    font-weight: var(--font-weight-bold);
+}
+.pots-progress-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+}
+/* pots progress bar */
+.pots-progress{
+    height: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+    .pots-section{
+        grid-template-columns: 1fr;
+    }
+
+}
+@media (max-width: 500px) {
+    .pots-card{
+        padding-inline: var(--space-250);
+    }
+
+}

@@ -1,7 +1,12 @@
-.input-wrapper{
+.input-wrapper {
     position: relative;
+    flex: 1;        /* grow and shrink */
+    min-width: 140px;
+    margin-right: var(--space-300); /* spacing between input and dropdowns */
 }
-.search{
+
+.input {
+    width: 100%;   /* fill the wrapper */
     padding: var(--space-150) var(--space-250);
     border-radius: var(--border-radius-secondary);
     border: 0.0625rem solid var(--color-grey-500);
@@ -11,4 +16,10 @@
     top: 50%;
     transform: translateY(-50%);
     right: var(--space-250);
+}
+@media (max-width: 800px) {
+
+}
+@media (max-width: 500px) {
+
 }

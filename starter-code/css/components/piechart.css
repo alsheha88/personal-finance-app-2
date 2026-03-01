@@ -1,8 +1,17 @@
+.test{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .pie-chart-wrapper{
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    height: 240px;
+    width: 240px;
 }
 .transparent-cricle{
     background-color: rgba(250, 250, 250, 0.25);

@@ -1,10 +1,15 @@
 .transactions-content{
     gap: var(--space-300);
+    min-width: 88%;
 }
+
+/* Drop Down */
 .search-dropdown-wrapper{
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-width: 0;
+    
 }
 .dropdowns{
     display: flex;
@@ -16,9 +21,16 @@
     gap: var(--space-100);
     align-items: center;
 }
-.dropdown-container{
-    position: relative;
+.dropdown-btn{
+    padding: var(--space-150) var(--space-250);
+    display: flex;
+    align-items: center;
+    gap: var(--space-200);
+    border: 0.0625rem solid var(--color-beige-500);
+    border-radius: var(--border-radius-secondary);
 }
+/* Table */
+
 .table-heading{
     display: grid;
     grid-template-columns: 2fr 0.6fr 0.6fr 1fr;
@@ -64,4 +76,44 @@
 }
 button span{
     font-size: var(--text-preset-4);
+}
+.filter-btn, .sort-btn{
+    display: none;
+}
+
+@media (max-width: 800px) {
+
+}
+@media (max-width: 500px) {
+    .transactions-content{
+        padding: var(--space-300) var(--space-250);
+    }
+    #dropdown-btn, #filter{
+        display: none;
+    }
+    .filter-btn, .sort-btn{
+        display: block;
+    }
+    .table-heading{
+        display: none;
+    }
+    .table-row{
+        grid-template-columns: 1fr 1fr;
+    }
+    .transaction-amount{
+        grid-row: 1 / 2;
+        grid-column: 2 / 3;
+        place-content: center;
+    }
+    .transaction-date{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .transaction-category{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
 }

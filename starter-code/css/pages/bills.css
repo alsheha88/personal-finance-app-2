@@ -1,0 +1,121 @@
+.bills-section{
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-300);
+}
+
+.card__dark p, .card__dark h2{
+    color: var(--color-white);
+
+}
+.summary-section{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-250);
+}
+.bills-summary-total{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-400);
+}
+.bills-summary{
+    padding: var(--space-300);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-400);
+}
+.bill-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--color-grey-100);
+    padding: var(--space-200) 0;
+}
+.bill-item:first-child{
+    padding-top: 0;
+}
+.bill-item:last-child{
+    border-bottom: none;
+}
+
+.bills-table{
+    gap: var(--space-250);
+}
+.bills-sort{
+    min-width: 100%;
+    height: 18.8rem;
+    overflow-y: auto;
+}
+.bills-dropdown-btn{
+    padding: var(--space-150) var(--space-250);
+    display: flex;
+    align-items: center;
+    gap: var(--space-200);
+    border: 0.0625rem solid var(--color-beige-500);
+    border-radius: var(--border-radius-secondary);
+}
+.bills-table-heading{
+    display: grid;
+    grid-template-columns: 1fr 0.375fr 0.31fr ;
+    padding: var(--space-150) var(--space-200);
+}
+.bills-table-heading small:last-child{
+    text-align: end;
+}
+.bills-row{
+   display: grid;
+   grid-template-columns: 1fr 0.375fr 0.31fr;
+   padding: var(--space-200);
+    border-bottom: 1px solid var(--color-grey-100);
+}
+.bills-row:last-child{
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.bills-row:first-child{
+    padding-top: 0;
+}
+.bills-row div:last-child{
+    text-align: end;
+}
+@media (max-width: 1024px) {
+    .bills-section{
+        grid-template-columns: 1fr;
+    }
+    .summary-section{
+        flex-direction: row;
+    }
+    .bills-summary{
+        flex-grow: 1;
+    }
+    .bills-summary-total{
+        flex-grow: 1;
+    }
+
+}
+@media (max-width: 500px) {
+    .summary-section{
+        flex-direction: column;
+    }
+    .bills-dropdown-btn{
+       display: none;
+    }
+    .bills-sort-title{
+        display: none;
+    }
+    .bills-table-heading{
+        display: none;
+    }
+    .bills-row{
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        padding: 0;
+    }
+    .bill-amount{
+        grid-row: 2;
+    }
+    .bill-frequency{
+        grid-row: 2;
+    }
+}

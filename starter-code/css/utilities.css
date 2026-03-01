@@ -1,0 +1,56 @@
+.flex-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+.grid{
+    display: grid;
+}
+.grid-column{
+    grid-template-columns: 1fr 1fr;
+}
+.gap-100{
+    gap: var(--space-100);
+}
+.gap-150{
+    gap: var(--space-150);
+}
+.gap-200{
+    gap: var(--space-200);
+}
+
+.credit{
+    color: var(--color-red);
+}
+
+.debit{
+    color: var(--color-green);
+}
+.active{
+    background-color: var(--color-beige-100);
+	color: var(--color-black);
+	border-top-right-radius: var(--space-100);
+	border-bottom-right-radius: var(--space-100);
+	border-left: var(--space-50) solid var(--color-green);
+}
+.active svg path{
+    fill: var(--color-green);
+}
+.active span{
+    color: var(--color-grey-900);
+}
+
+@media (max-width: 1024px){
+    .active{
+    border-top-right-radius: var(--space-100);
+    border-bottom-right-radius: 0;
+	border-top-left-radius: var(--space-100);
+	border-left: 0;
+	border-bottom: var(--space-50) solid var(--color-green);
+
+    }
+}
