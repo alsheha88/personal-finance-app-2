@@ -1,6 +1,5 @@
 .dropdown-container{
     position: relative;
-    overflow-x: clip;
 }
 
 .dropdown-list{
@@ -17,6 +16,7 @@
     pointer-events: none;
     transition: opacity 0.2s ease-in-out;
 }
+
 .dropdown-item{
     padding: var(--space-150) 0;
     border-bottom: 1px solid var(--color-grey-100);
@@ -37,9 +37,13 @@
 .selected{
     font-weight: var(--font-weight-regular);
 }
-.show{
+.show-dropdown{
     opacity: 1;
     pointer-events: visible;
+}
+
+.dropdown-container .dropdown-list.show-dropdown{
+    overflow-x: hidden;
 }
 @media (max-width: 800px) {
 

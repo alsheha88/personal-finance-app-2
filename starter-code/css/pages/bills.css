@@ -43,7 +43,7 @@
     gap: var(--space-250);
 }
 .bills-sort{
-    min-width: 100%;
+    width: 100%;
     height: 18.8rem;
     overflow-y: auto;
 }
@@ -66,6 +66,7 @@
 .bills-row{
    display: grid;
    grid-template-columns: 1fr 0.375fr 0.31fr;
+   align-items: center;
    padding: var(--space-200);
     border-bottom: 1px solid var(--color-grey-100);
 }
@@ -78,6 +79,11 @@
 }
 .bills-row div:last-child{
     text-align: end;
+}
+.bill-frequency{
+    display: flex;
+    align-items: center;
+    gap: var(--space-100);
 }
 @media (max-width: 1024px) {
     .bills-section{
@@ -94,7 +100,7 @@
     }
 
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .summary-section{
         flex-direction: column;
     }

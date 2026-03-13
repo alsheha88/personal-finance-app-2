@@ -43,6 +43,7 @@
 .table-row{
    display: grid;
    grid-template-columns: 2fr 0.6fr 0.6fr 1fr;
+   align-items: center;
    padding: var(--space-200);
     border-bottom: 1px solid var(--color-grey-100);
 }
@@ -59,6 +60,7 @@
 .image-title{
     display: flex;
     gap: var(--space-200);
+    align-items: center;
 }
 .image-title img{
     width: var(--space-500);
@@ -80,11 +82,20 @@ button span{
 .filter-btn, .sort-btn{
     display: none;
 }
+#transactionDate, #category{
+    text-align: center;
+}
+.transaction-category,.transaction-date{
+    text-align: center;
+}
+[data-pagination]{
+    height: 100%;
+}
 
 @media (max-width: 800px) {
 
 }
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .transactions-content{
         padding: var(--space-300) var(--space-250);
     }
@@ -114,6 +125,11 @@ button span{
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    
+    [data-pagination] span{
+        display: none;
+
     }
 
 }

@@ -1,12 +1,9 @@
 .modal{
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    inset: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100dvh;
-    width: 100dvw;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     opacity: 0;
@@ -26,5 +23,7 @@
 
 }
 @media (max-width: 500px) {
-
+    .modal__card{
+        padding: var(--space-300) var(--space-250);
+    }
 }

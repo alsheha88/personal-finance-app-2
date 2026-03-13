@@ -4,14 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="./css/main.css">
   <title>Frontend Mentor | Personal finance app - Transactions</title>
 </head>
 
 <body>
-  <main>
+  <main id="transactions">
     <nav>
       <div class="logo-wrapper">
         <img src="./assets/images/logo-large.svg" alt="logo">
@@ -58,12 +58,15 @@
           <span>Recurring Bills</span>
         </a>
       </div>
-      <button><svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+      <button data-minimize="minimize"><svg fill="none" height="20" viewBox="0 0 20 20" width="20"
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="m14.0001 5.26002v8.99998c0 .1989-.079.3897-.2197.5304-.1406.1406-.3314.2196-.5303.2196h-2.25v3.75c.0001.1484-.0438.2936-.1262.417-.0824.1235-.1996.2197-.3367.2765s-.288.0717-.4336.0427c-.14554-.029-.27923-.1005-.38412-.2056l-9.000003-9c-.069733-.0696-.125052-.1523-.162795-.2434-.037743-.09102-.05717-.18862-.05717-.28718s.019427-.19615.05717-.2872.093062-.17377.162795-.24342l9.000003-9.000004c.10489-.105009.23858-.1765346.38412-.2055224.1456-.02898777.2965-.0141343.4336.0426801.1371.0568143.2543.1530353.3367.2764803s.1263.268565.1262.416987v3.749999h2.25c.1989 0 .3897.07902.5303.21967.1407.14065.2197.33142.2197.53033zm2.25-.75c-.1989 0-.3897.07902-.5303.21967-.1407.14065-.2197.33142-.2197.53033v8.99998c0 .1989.079.3897.2197.5304.1406.1406.3314.2196.5303.2196s.3897-.079.5303-.2196c.1407-.1407.2197-.3315.2197-.5304v-8.99998c0-.19891-.079-.38968-.2197-.53033-.1406-.14065-.3314-.21967-.5303-.21967zm3 0c-.1989 0-.3897.07902-.5303.21967-.1407.14065-.2197.33142-.2197.53033v8.99998c0 .1989.079.3897.2197.5304.1406.1406.3314.2196.5303.2196s.3897-.079.5303-.2196c.1407-.1407.2197-.3315.2197-.5304v-8.99998c0-.19891-.079-.38968-.2197-.53033-.1406-.14065-.3314-.21967-.5303-.21967z"
             fill="#b3b3b3" />
         </svg>Minimize Menu</button>
-    </nav>
+
+      </nav>
+      <button id="show-nav" class="maximize-nav"><i class="fa-solid fa-arrow-right"></i></button>
     <section>
       <div>
         <h1>Transactions</h1>
@@ -79,12 +82,13 @@
               <small id="filter">Sort by</small>
               <div>
                 <div class="dropdown-container">
-                  <button id="dropdown-btn" class="dropdown-btn">
+                  <button data-dropdown-trigger="transactions-sort" class="dropdown-btn" id="dropdown-btn">
                     <span>Latest</span>
                     <img src="./assets/images/icon-caret-down.svg" alt="">
                   </button>
-                  <button data-sort="sort-transaction" class="sort-btn"><img src="./assets/images/icon-sort-mobile.svg" alt=""></button>
-                  <ul class="dropdown-list">
+                  <button data-dropdown-trigger="transactions-sort" class="sort-btn"><img src="./assets/images/icon-sort-mobile.svg"
+                      alt=""></button>
+                  <ul data-dropdown-menu="transactions-sort"  class="dropdown-list dropdown--full dropdown--compact">
                     <li data-sortItem="latest-transaction" class="dropdown-item">Latest</li>
                     <li data-sortItem="oldest-transaction" class="dropdown-item">Oldest</li>
                     <li data-sortItem="atoz-transaction" class="dropdown-item">A to Z</li>
@@ -99,12 +103,12 @@
               <small id="filter">Category</small>
               <div>
                 <div class="dropdown-container">
-                  <button data-filters="filters-transaction" id="dropdown-btn" class="dropdown-btn">
+                  <button data-dropdown-trigger="transactions-category" id="dropdown-btn" class="dropdown-btn">
                     <span>All Transactions</span>
                     <img src="./assets/images/icon-caret-down.svg" alt="">
                   </button>
-                  <button class="filter-btn"><img src="./assets/images/icon-filter-mobile.svg" alt=""></button>
-                  <ul class="dropdown-list">
+                  <button data-dropdown-trigger="transactions-category" class="filter-btn"><img src="./assets/images/icon-filter-mobile.svg" alt=""></button>
+                  <ul data-dropdown-menu="transactions-category" class="dropdown-list dropdown--full dropdown--compact">
                     <li data-filter="all-transaction" class="dropdown-item">All Transactions</li>
                     <li data-filter="entertainment-transaction" class="dropdown-item">Entertainment</li>
                     <li data-filter="bills-transaction" class="dropdown-item">Bills</li>
@@ -123,132 +127,16 @@
         </div>
         <div class="table-heading">
           <small>Recipient/Sender</small>
-          <small>Category</small>
-          <small>Transaction Date</small>
+          <small id="category">Category</small>
+          <small id="transactionDate">Transaction Date</small>
           <small>Amount</small>
         </div>
         <!-- Add transaction data -->
-        <div>
-          <div class="table-row">
-            <div class="image-title">
-              <img src="" alt="">
-              <h4>Emma Richardson</h4>
-            </div>
-            <div class="transaction-category">
-              <small>General</small>
-            </div>
-            <div class="transaction-date">
-              <small >19 Aug 2024</small>
-            </div>
-            <div class="transaction-amount">
-              <h4 >+$75.50</h4>
-            </div>
-          </div>
-          <div class="table-row">
-            <div class="image-title">
-              <img src="" alt="">
-              <h4>Emma Richardson</h4>
-            </div>
-            <div class="transaction-category">
-              <small>General</small>
-            </div>
-            <div class="transaction-date">
-              <small >19 Aug 2024</small>
-            </div>
-            <div class="transaction-amount">
-              <h4 >+$75.50</h4>
-            </div>
-          </div>
-          <div class="table-row">
-            <div class="image-title">
-              <img src="" alt="">
-              <h4>Emma Richardson</h4>
-            </div>
-            <div class="transaction-category">
-              <small>General</small>
-            </div>
-            <div class="transaction-date">
-              <small >19 Aug 2024</small>
-            </div>
-            <div class="transaction-amount">
-              <h4 >+$75.50</h4>
-            </div>
-          </div>
-          <div class="table-row">
-            <div class="image-title">
-              <img src="" alt="">
-              <h4>Emma Richardson</h4>
-            </div>
-            <div class="transaction-category">
-              <small>General</small>
-            </div>
-            <div class="transaction-date">
-              <small >19 Aug 2024</small>
-            </div>
-            <div class="transaction-amount">
-              <h4 >+$75.50</h4>
-            </div>
-          </div>
-          <div class="table-row">
-            <div class="image-title">
-              <img src="" alt="">
-              <h4>Emma Richardson</h4>
-            </div>
-            <div class="transaction-category">
-              <small>General</small>
-            </div>
-            <div class="transaction-date">
-              <small >19 Aug 2024</small>
-            </div>
-            <div class="transaction-amount">
-              <h4 >+$75.50</h4>
-            </div>
-          </div>
-          <div class="table-row">
-            <div class="image-title">
-              <img src="" alt="">
-              <h4>Emma Richardson</h4>
-            </div>
-            <div class="transaction-category">
-              <small>General</small>
-            </div>
-            <div class="transaction-date">
-              <small >19 Aug 2024</small>
-            </div>
-            <div class="transaction-amount">
-              <h4 >+$75.50</h4>
-            </div>
-          </div>
-          <div class="table-row">
-            <div class="image-title">
-              <img src="" alt="">
-              <h4>Emma Richardson</h4>
-            </div>
-            <div class="transaction-category">
-              <small>General</small>
-            </div>
-            <div class="transaction-date">
-              <small >19 Aug 2024</small>
-            </div>
-            <div class="transaction-amount">
-              <h4 >+$75.50</h4>
-            </div>
-          </div>
-          
-        </div>
-        <div class="btn-row">
-          <button data-previous="previous" class="btn btn--light"><img src="./assets/images/icon-caret-left.svg" alt=""> <span>Prev</span></button>
-          <div class="pagination-wrapper">
-            <button class="btn btn--light"><span>1</span></button>
-            <button class="btn btn--light"><span>2</span></button>
-            <button class="btn btn--light"><span>3</span></button>
-            <button class="btn btn--light"><span>4</span></button>
-          </div>
-          <button data-next="next" class="btn btn--light"> <span>Next</span> <img src="./assets/images/icon-caret-right.svg" alt=""></button>
-        </div>
+
       </div>
     </section>
   </main>
+  <script src="./js/main.js" type="module"></script>
 </body>
 
 </html>

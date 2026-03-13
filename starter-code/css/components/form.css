@@ -3,6 +3,9 @@
     gap: var(--space-200);
 
 }
+.form__wrapper button[type='submit']{
+    margin-top: var(--space-100);
+}
 .modal__input{
     display: grid;
     gap: var(--space-50);
@@ -25,21 +28,22 @@
     display: inline-block;
     background-color: var(--color-green);
 }
-li[data-color='green'] span{background-color: var(--color-green);}
-li[data-color='yellow'] span{background-color: var(--color-yellow);}
-li[data-color='cyan'] span{background-color: var(--color-cyan);}
-li[data-color='navy'] span{background-color: var(--color-navy);}
-li[data-color='red'] span{background-color: var(--color-red);}
-li[data-color='purple'] span{background-color: var(--color-purple);}
-li[data-color='turquoise'] span{background-color: var(--color-turquoise);}
-li[data-color='brown'] span{background-color: var(--color-brown);}
-li[data-color='magneta'] span{background-color: var(--color-magenta);}
-li[data-color='blue'] span{background-color: var(--color-blue);}
-li[data-color='navy-grey'] span{background-color: var(--color-navy-grey);}
-li[data-color='army-green'] span{background-color: var(--color-army-green);}
-li[data-color='pink'] span{background-color: var(--color-pink);}
-li[data-color='gold'] span{background-color: var(--color-gold);}
-li[data-color='orange'] span{background-color: var(--color-orange);}
+
+li[data-color='#277C78'] span{background-color: var(--color-green);}
+li[data-color='#F2CDAC'] span{background-color: var(--color-yellow);}
+li[data-color='#82C9D7'] span{background-color: var(--color-cyan);}
+li[data-color='#626070'] span{background-color: var(--color-navy);}
+li[data-color='#C94736'] span{background-color: var(--color-red);}
+li[data-color='#826CB0'] span{background-color: var(--color-purple);}
+li[data-color='#597C7C'] span{background-color: var(--color-turquoise);}
+li[data-color='#93674F'] span{background-color: var(--color-brown);}
+li[data-color='#934F6F'] span{background-color: var(--color-magenta);}
+li[data-color='#3F82B2'] span{background-color: var(--color-blue);}
+li[data-color='#97A0AC'] span{background-color: var(--color-navy-grey);}
+li[data-color='#7F9161'] span{background-color: var(--color-army-green);}
+li[data-color='#AF81BA'] span{background-color: var(--color-pink);}
+li[data-color='#CAB361'] span{background-color: var(--color-gold);}
+li[data-color='#BE6C49'] span{background-color: var(--color-orange);}
 
 @media (max-width: 800px) {
 

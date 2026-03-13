@@ -30,6 +30,9 @@
 .debit{
     color: var(--color-green);
 }
+.collapse{
+    display: none;
+}
 .active{
     background-color: var(--color-beige-100);
 	color: var(--color-black);
@@ -42,6 +45,10 @@
 }
 .active span{
     color: var(--color-grey-900);
+}
+
+.text-align-end{
+    text-align: end;
 }
 
 @media (max-width: 1024px){

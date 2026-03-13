@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: var(--space-300);
+    width: 100%;
 }
 .summary-cards > div:first-child h2, .summary-cards > div:first-child p{
     color: var(--color-white);
@@ -66,6 +67,7 @@
     gap: var(--space-200);
     
 }
+
 /* Budget Overview */
 .budgets-overview{
     display: flex;

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="./css/main.css">
 
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <main>
+  <main id="bills">
     <nav>
       <div class="logo-wrapper">
         <img src="./assets/images/logo-large.svg" alt="logo">
@@ -59,12 +59,14 @@
           <span>Recurring Bills</span>
         </a>
       </div>
-      <button><svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+      <button data-minimize="minimize"><svg fill="none" height="20" viewBox="0 0 20 20" width="20"
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="m14.0001 5.26002v8.99998c0 .1989-.079.3897-.2197.5304-.1406.1406-.3314.2196-.5303.2196h-2.25v3.75c.0001.1484-.0438.2936-.1262.417-.0824.1235-.1996.2197-.3367.2765s-.288.0717-.4336.0427c-.14554-.029-.27923-.1005-.38412-.2056l-9.000003-9c-.069733-.0696-.125052-.1523-.162795-.2434-.037743-.09102-.05717-.18862-.05717-.28718s.019427-.19615.05717-.2872.093062-.17377.162795-.24342l9.000003-9.000004c.10489-.105009.23858-.1765346.38412-.2055224.1456-.02898777.2965-.0141343.4336.0426801.1371.0568143.2543.1530353.3367.2764803s.1263.268565.1262.416987v3.749999h2.25c.1989 0 .3897.07902.5303.21967.1407.14065.2197.33142.2197.53033zm2.25-.75c-.1989 0-.3897.07902-.5303.21967-.1407.14065-.2197.33142-.2197.53033v8.99998c0 .1989.079.3897.2197.5304.1406.1406.3314.2196.5303.2196s.3897-.079.5303-.2196c.1407-.1407.2197-.3315.2197-.5304v-8.99998c0-.19891-.079-.38968-.2197-.53033-.1406-.14065-.3314-.21967-.5303-.21967zm3 0c-.1989 0-.3897.07902-.5303.21967-.1407.14065-.2197.33142-.2197.53033v8.99998c0 .1989.079.3897.2197.5304.1406.1406.3314.2196.5303.2196s.3897-.079.5303-.2196c.1407-.1407.2197-.3315.2197-.5304v-8.99998c0-.19891-.079-.38968-.2197-.53033-.1406-.14065-.3314-.21967-.5303-.21967z"
             fill="#b3b3b3" />
         </svg>Minimize Menu</button>
-    </nav>
+      </nav>
+      <button id="show-nav" class="maximize-nav"><i class="fa-solid fa-arrow-right"></i></button>
     <section>
       <div class="page-heading">
         <h1>Recurring</h1>
@@ -101,24 +103,24 @@
         <div class="card bills-table">
           <div class="card-heading">
             <div class="input-wrapper">
-              <input class="input" type="text" placeholder="Search bills">
+              <input data-search="search-bills" class="input" type="text" placeholder="Search bills">
               <button><img src="./assets/images/icon-search.svg" alt="search"></button>
             </div>
             <div class="dropdown-wrapper">
               <small class="bills-sort-title">Sort by</small>
               <div class="dropdown-container">
-                <button class="bills-dropdown-btn">
+                <button data-dropdown-trigger="bills-sort" class="bills-dropdown-btn">
                   <span>Latest</span>
                   <img src="./assets/images/icon-caret-down.svg" alt="">
                 </button>
-                <button class="sort-btn"><img src="./assets/images/icon-sort-mobile.svg" alt=""></button>
-                <ul class="dropdown-list bills-sort">
-                  <li class="dropdown-item">Latest</li>
-                  <li class="dropdown-item">Oldest</li>
-                  <li class="dropdown-item">A to Z</li>
-                  <li class="dropdown-item">Z to A</li>
-                  <li class="dropdown-item">Highest</li>
-                  <li class="dropdown-item">Lowest</li>
+                <button data-dropdown-trigger="bills-sort" class="sort-btn "><img src="./assets/images/icon-sort-mobile.svg" alt=""></button>
+                <ul data-dropdown-menu="bills-sort" class="dropdown-list dropdown--full bills-sort dropdown--compact">
+                  <li data-sortItem="latest-bill" class="dropdown-item">Latest</li>
+                  <li data-sortItem="oldest-bill" class="dropdown-item">Oldest</li>
+                  <li data-sortItem="atoz-bill" class="dropdown-item">A to Z</li>
+                  <li data-sortItem="ztoa-bill" class="dropdown-item">Z to A</li>
+                  <li data-sortItem="highest-bill" class="dropdown-item">Highest</li>
+                  <li data-sortItem="lowest-bill" class="dropdown-item">Lowest</li>
                 </ul>
               </div>
             </div>
@@ -128,7 +130,7 @@
             <small>Due Date</small>
             <small>Amount</small>
           </div>
-          <div>
+          <div id="bills-table">
             <!-- Add recurring data -->
             <div class="bills-row">
               <div class="bill-name">
@@ -147,5 +149,7 @@
       </div>
     </section>
   </main>
+  <script src="./js/main.js" type="module"></script>
 </body>
+
 </html>

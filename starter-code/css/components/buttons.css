@@ -27,7 +27,7 @@
     color: var(--color-grey-500);
 }
 
-.btn--light:hover{
+.btn--light:hover, .btn--dark:hover{
     background-color: var(--color-beige-500);
     color: var(--color-white);
 }
@@ -35,4 +35,7 @@
     background-color: var(--color-grey-900);
     color: var(--color-white);
 
+}
+.btn--danger:hover{
+    background-color: rgba(201, 71, 54, 0.8);
 }

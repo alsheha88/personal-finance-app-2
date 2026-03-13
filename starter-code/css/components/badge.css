@@ -2,7 +2,7 @@
     display: inline-block;
     width: var(--space-50);
     height: 100%;
-    background-color: var(--color-red);
+    background-color: var(--badge-color);
     border-radius: var(--space-50);
     min-height: 1.3rem;
 }

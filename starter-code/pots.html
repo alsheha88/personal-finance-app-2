@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="./css/main.css">
 
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <main>
+  <main id="pots">
     <nav>
       <div class="logo-wrapper">
         <img src="./assets/images/logo-large.svg" alt="logo">
@@ -59,16 +59,18 @@
           <span>Recurring Bills</span>
         </a>
       </div>
-      <button><svg fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+      <button data-minimize="minimize"><svg fill="none" height="20" viewBox="0 0 20 20" width="20"
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="m14.0001 5.26002v8.99998c0 .1989-.079.3897-.2197.5304-.1406.1406-.3314.2196-.5303.2196h-2.25v3.75c.0001.1484-.0438.2936-.1262.417-.0824.1235-.1996.2197-.3367.2765s-.288.0717-.4336.0427c-.14554-.029-.27923-.1005-.38412-.2056l-9.000003-9c-.069733-.0696-.125052-.1523-.162795-.2434-.037743-.09102-.05717-.18862-.05717-.28718s.019427-.19615.05717-.2872.093062-.17377.162795-.24342l9.000003-9.000004c.10489-.105009.23858-.1765346.38412-.2055224.1456-.02898777.2965-.0141343.4336.0426801.1371.0568143.2543.1530353.3367.2764803s.1263.268565.1262.416987v3.749999h2.25c.1989 0 .3897.07902.5303.21967.1407.14065.2197.33142.2197.53033zm2.25-.75c-.1989 0-.3897.07902-.5303.21967-.1407.14065-.2197.33142-.2197.53033v8.99998c0 .1989.079.3897.2197.5304.1406.1406.3314.2196.5303.2196s.3897-.079.5303-.2196c.1407-.1407.2197-.3315.2197-.5304v-8.99998c0-.19891-.079-.38968-.2197-.53033-.1406-.14065-.3314-.21967-.5303-.21967zm3 0c-.1989 0-.3897.07902-.5303.21967-.1407.14065-.2197.33142-.2197.53033v8.99998c0 .1989.079.3897.2197.5304.1406.1406.3314.2196.5303.2196s.3897-.079.5303-.2196c.1407-.1407.2197-.3315.2197-.5304v-8.99998c0-.19891-.079-.38968-.2197-.53033-.1406-.14065-.3314-.21967-.5303-.21967z"
             fill="#b3b3b3" />
         </svg>Minimize Menu</button>
-    </nav>
+      </nav>
+      <button id="show-nav" class="maximize-nav"><i class="fa-solid fa-arrow-right"></i></button>
     <section>
       <div class="pots-heading page-heading">
         <h1>Pots</h1>
-        <button class="btn btn--dark"><span>+ Add New Pot</span></button>
+        <button data-modal-trigger="new-pot-modal" class="btn btn--dark"><span>+ Add New Pot</span></button>
       </div>
       <div class="pots-section">
         <div class="card card--compact pots-card">
@@ -78,16 +80,16 @@
               <h3>Savings</h3>
             </div>
             <div class="dropdown-container">
-              <button>
+              <button data-dropdown-trigger="edit-pot-dropdown">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path
                     d="M9.75 8C9.75 8.34612 9.64736 8.68446 9.45507 8.97225C9.26278 9.26003 8.98947 9.48434 8.6697 9.61679C8.34993 9.74924 7.99806 9.7839 7.65859 9.71637C7.31913 9.64885 7.00731 9.48218 6.76256 9.23744C6.51782 8.9927 6.35115 8.68087 6.28363 8.34141C6.2161 8.00194 6.25076 7.65007 6.38321 7.3303C6.51567 7.01053 6.73997 6.73722 7.02775 6.54493C7.31554 6.35264 7.65388 6.25 8 6.25C8.46413 6.25 8.90925 6.43437 9.23744 6.76256C9.56563 7.09075 9.75 7.53587 9.75 8ZM3 6.25C2.65388 6.25 2.31554 6.35264 2.02775 6.54493C1.73997 6.73722 1.51566 7.01053 1.38321 7.3303C1.25076 7.65007 1.2161 8.00194 1.28363 8.34141C1.35115 8.68087 1.51782 8.9927 1.76256 9.23744C2.00731 9.48218 2.31913 9.64885 2.65859 9.71637C2.99806 9.7839 3.34993 9.74924 3.6697 9.61679C3.98947 9.48434 4.26278 9.26003 4.45507 8.97225C4.64737 8.68446 4.75 8.34612 4.75 8C4.75 7.53587 4.56563 7.09075 4.23744 6.76256C3.90925 6.43437 3.46413 6.25 3 6.25ZM13 6.25C12.6539 6.25 12.3155 6.35264 12.0278 6.54493C11.74 6.73722 11.5157 7.01053 11.3832 7.3303C11.2508 7.65007 11.2161 8.00194 11.2836 8.34141C11.3512 8.68087 11.5178 8.9927 11.7626 9.23744C12.0073 9.48218 12.3191 9.64885 12.6586 9.71637C12.9981 9.7839 13.3499 9.74924 13.6697 9.61679C13.9895 9.48434 14.2628 9.26003 14.4551 8.97225C14.6474 8.68446 14.75 8.34612 14.75 8C14.75 7.77019 14.7047 7.54262 14.6168 7.3303C14.5288 7.11798 14.3999 6.92507 14.2374 6.76256C14.0749 6.60006 13.882 6.47116 13.6697 6.38321C13.4574 6.29526 13.2298 6.25 13 6.25Z"
                     fill="#B3B3B3" />
                 </svg>
               </button>
-              <ul class="dropdown-list dropdown-list--compact dropdown--compact">
-                <li class="dropdown-item" data-value="edit">Edit Pot</li>
-                <li class="dropdown-item btn--delete" data-value="delete">Delet Pot</li>
+              <ul data-dropdown-menu="edit-pot-dropdown" class="dropdown-list dropdown-list--compact dropdown--compact">
+                <li class="dropdown-item" data-modal-trigger="edit-pot-modal" data-edit="edit-pot">Edit Pot</li>
+                <li class="dropdown-item btn--delete" data-modal-trigger="delete-pot-modal">Delet Pot</li>
               </ul>
             </div>
           </div>
@@ -105,273 +107,274 @@
             </div>
           </div>
           <div class="pots-card-btns">
-            <button class="btn pots-btns">+ Add Money</button>
-            <button class="btn pots-btns">Withdraw</button>
+            <button data-modal-trigger="add-modal" data-add="add-money" class="btn pots-btns">+ Add Money</button>
+            <button data-modal-trigger="withdraw-modal" data-withdraw="withdraw" class="btn pots-btns">Withdraw</button>
           </div>
         </div>
       </div>
     </section>
   </main>
-  <div>
-    <div class="modal">
+  <div id="modals">
+    <div data-modal="new-pot-modal" data-collapse="collapse-new-pot" class="modal">
       <div class="card modal__card">
         <div class="card-heading">
           <h1>Add New Pot</h1>
-          <button><img src="./assets/images/icon-close-modal.svg" alt=""></button>
+          <button data-collapse-trigger="collapse-new-pot"><img src="./assets/images/icon-close-modal.svg" alt=""></button>
         </div>
         <small>Create a pot to set savings targets. These can help keep you on track as you save for special
           purchases.</small>
-        <div class="form__wrapper">
+        <form id="newPotForm" class="form__wrapper">
           <div class="modal__input">
-            <label for="">Pot Name</label>
-            <input class="input" type="text" placeholder="e.g. Rainy Days">
-            <small>30 characters left</small>
+            <label for="pot-name">Pot Name</label>
+            <input data-name="pot-name-add" class="input" id="pot-name" type="text" placeholder="e.g. Rainy Days">
+            <small class="text-align-end">30 characters left</small>
           </div>
           <div class="modal__input">
-            <label for="">Target</label>
-            <input class="input" type="text" placeholder="$ e.g. 2000">
+            <label for="pot-target">Target</label>
+            <input data-target="pot-target" class="input" id="pot-target" type="text" placeholder="$ e.g. 2000">
           </div>
           <div class="modal__input">
-            <label for="">Theme</label>
+            <label>Theme</label>
             <div class="dropdown-container">
-              <button class="btn btn--light form__btn">
-                <div class="form__theme">
+              <button type="button" data-dropdown-trigger="add-pot-theme" class="btn btn--light form__btn">
+                <div  class="form__theme">
                   <span class="color-dot"></span>
                   <span>Green</span>
                 </div>
                 <img src="./assets/images/icon-caret-down.svg" alt="">
               </button>
-              <ul class="dropdown-list dropdown--full">
-                <li class="dropdown-item form__theme" data-color="green">
+              <ul data-dropdown-menu="add-pot-theme" class="dropdown-list dropdown--full">
+                <li class="dropdown-item form__theme" data-color="#277C78">
                   <span class="color-dot"></span>
                   Green
                 </li>
-                <li class="dropdown-item form__theme" data-color="yellow">
+                <li class="dropdown-item form__theme" data-color="#F2CDAC">
                   <span class="color-dot"></span>
                   Yellow
                 </li>
-                <li class="dropdown-item form__theme" data-color="cyan">
+                <li class="dropdown-item form__theme" data-color="#82C9D7">
                   <span class="color-dot"></span>
                   Cyan
                 </li>
-                <li class="dropdown-item form__theme" data-color="navy">
+                <li class="dropdown-item form__theme" data-color="#626070">
                   <span class="color-dot"></span>
                   Navy
                 </li>
-                <li class="dropdown-item form__theme" data-color="red">
+                <li class="dropdown-item form__theme" data-color="#C94736">
                   <span class="color-dot"></span>
                   Red
                 </li>
-                <li class="dropdown-item form__theme" data-color="purple">
+                <li class="dropdown-item form__theme" data-color="#826CB0">
                   <span class="color-dot"></span>
                   Purple
                 </li>
-                <li class="dropdown-item form__theme" data-color="turquoise">
+                <li class="dropdown-item form__theme" data-color="#597C7C">
                   <span class="color-dot"></span>
                   Turquoise
                 </li>
-                <li class="dropdown-item form__theme" data-color="brown">
+                <li class="dropdown-item form__theme" data-color="#93674F">
                   <span class="color-dot"></span>
                   Brown
                 </li>
-                <li class="dropdown-item form__theme" data-color="magenta">
+                <li class="dropdown-item form__theme" data-color="#934F6F">
                   <span class="color-dot"></span>
                   Magenta
                 </li>
-                <li class="dropdown-item form__theme" data-color="blue">
+                <li class="dropdown-item form__theme" data-color="#3F82B2">
                   <span class="color-dot"></span>
                   Blue
                 </li>
-                <li class="dropdown-item form__theme" data-color="navy-grey">
+                <li class="dropdown-item form__theme" data-color="#97A0AC">
                   <span class="color-dot"></span>
                   Navy Grey
                 </li>
-                <li class="dropdown-item form__theme" data-color="army-green">
+                <li class="dropdown-item form__theme" data-color="#7F9161">
                   <span class="color-dot"></span>
                   Army Green
                 </li>
-                <li class="dropdown-item form__theme" data-color="pink">
+                <li class="dropdown-item form__theme" data-color="#AF81BA">
                   <span class="color-dot"></span>
                   Pink
                 </li>
-                <li class="dropdown-item form__theme" data-color="gold">
+                <li class="dropdown-item form__theme" data-color="#CAB361">
                   <span class="color-dot"></span>
                   Gold
                 </li>
-                <li class="dropdown-item form__theme" data-color="orange">
+                <li class="dropdown-item form__theme" data-color="#BE6C49">
                   <span class="color-dot"></span>
                   Orange
                 </li>
               </ul>
             </div>
           </div>
-        </div>
-        <button class="btn btn--dark">Add Pot</button>
+          <button type="submit" data-add="add-pot" class="btn btn--dark">Add Pot</button>
+        </form>
       </div>
     </div>
-    <div class="modal">
+    <div data-modal="edit-pot-modal" data-collapse="collapse-edit-pot" class="modal">
       <div class="card modal__card">
         <div class="card-heading">
           <h1>Edit Pot</h1>
-          <button><img src="./assets/images/icon-close-modal.svg" alt=""></button>
+          <button data-collapse-trigger="collapse-edit-pot"><img src="./assets/images/icon-close-modal.svg" alt=""></button>
         </div>
         <small>If your saving targets change, feel free to update your pots.</small>
-        <div class="form__wrapper">
+        <form id="editPotForm" class="form__wrapper">
           <div class="modal__input">
-            <label for="">Pot Name</label>
-            <input class="input" type="text" placeholder="e.g. Rainy Days">
-            <small>30 characters left</small>
+            <label for="edit-pot-name">Pot Name</label>
+            <input data-name="pot-name-edit" id="edit-pot-name" class="input" type="text" placeholder="e.g. Rainy Days">
+            <small class="text-align-end">30 characters left</small>
           </div>
           <div class="modal__input">
-            <label for="">Target</label>
-            <input class="input" type="text" placeholder="$ e.g. 2000">
+            <label for="edit-pot-target">Target</label>
+            <input data-target="edit-target" id="edit-pot-target" class="input" type="text" placeholder="$ e.g. 2000">
           </div>
           <div class="modal__input">
-            <label for="">Theme</label>
+            <label>Theme</label>
             <div class="dropdown-container">
-              <button class="btn btn--light form__btn">
+              <button type="button" data-dropdown-trigger="edit-pot-theme" class="btn btn--light form__btn">
                 <div class="form__theme">
                   <span class="color-dot"></span>
                   <span>Green</span>
                 </div>
                 <img src="./assets/images/icon-caret-down.svg" alt="">
               </button>
-              <ul class="dropdown-list dropdown--full">
-                <li class="dropdown-item form__theme" data-color="green">
+              <ul data-dropdown-menu="edit-pot-theme" class="dropdown-list dropdown--full">
+                <li class="dropdown-item form__theme" data-color="#277C78">
                   <span class="color-dot"></span>
                   Green
                 </li>
-                <li class="dropdown-item form__theme" data-color="yellow">
+                <li class="dropdown-item form__theme" data-color="#F2CDAC">
                   <span class="color-dot"></span>
                   Yellow
                 </li>
-                <li class="dropdown-item form__theme" data-color="cyan">
+                <li class="dropdown-item form__theme" data-color="#82C9D7">
                   <span class="color-dot"></span>
                   Cyan
                 </li>
-                <li class="dropdown-item form__theme" data-color="navy">
+                <li class="dropdown-item form__theme" data-color="#626070">
                   <span class="color-dot"></span>
                   Navy
                 </li>
-                <li class="dropdown-item form__theme" data-color="red">
+                <li class="dropdown-item form__theme" data-color="#C94736">
                   <span class="color-dot"></span>
                   Red
                 </li>
-                <li class="dropdown-item form__theme" data-color="purple">
+                <li class="dropdown-item form__theme" data-color="#826CB0">
                   <span class="color-dot"></span>
                   Purple
                 </li>
-                <li class="dropdown-item form__theme" data-color="turquoise">
+                <li class="dropdown-item form__theme" data-color="#597C7C">
                   <span class="color-dot"></span>
                   Turquoise
                 </li>
-                <li class="dropdown-item form__theme" data-color="brown">
+                <li class="dropdown-item form__theme" data-color="#93674F">
                   <span class="color-dot"></span>
                   Brown
                 </li>
-                <li class="dropdown-item form__theme" data-color="magenta">
+                <li class="dropdown-item form__theme" data-color="#934F6F">
                   <span class="color-dot"></span>
                   Magenta
                 </li>
-                <li class="dropdown-item form__theme" data-color="blue">
+                <li class="dropdown-item form__theme" data-color="#3F82B2">
                   <span class="color-dot"></span>
                   Blue
                 </li>
-                <li class="dropdown-item form__theme" data-color="navy-grey">
+                <li class="dropdown-item form__theme" data-color="#97A0AC">
                   <span class="color-dot"></span>
                   Navy Grey
                 </li>
-                <li class="dropdown-item form__theme" data-color="army-green">
+                <li class="dropdown-item form__theme" data-color="#7F9161">
                   <span class="color-dot"></span>
                   Army Green
                 </li>
-                <li class="dropdown-item form__theme" data-color="pink">
+                <li class="dropdown-item form__theme" data-color="#AF81BA">
                   <span class="color-dot"></span>
                   Pink
                 </li>
-                <li class="dropdown-item form__theme" data-color="gold">
+                <li class="dropdown-item form__theme" data-color="#CAB361">
                   <span class="color-dot"></span>
                   Gold
                 </li>
-                <li class="dropdown-item form__theme" data-color="orange">
+                <li class="dropdown-item form__theme" data-color="#BE6C49">
                   <span class="color-dot"></span>
                   Orange
                 </li>
               </ul>
             </div>
           </div>
-        </div>
-        <button class="btn btn--dark">Save Changes</button>
+          <button type="submit" class="btn btn--dark">Save Changes</button>
+        </form>
       </div>
     </div>
-    <div class="modal">
+    <div data-modal="delete-pot-modal" data-collapse="collapse-delete-pot" class="modal">
       <div class="card modal__card">
         <div class="card-heading">
           <h1>Delete 'Savings'?</h1>
-          <button><img src="./assets/images/icon-close-modal.svg" alt=""></button>
+          <button data-collapse-trigger="collapse-delete-pot"><img src="./assets/images/icon-close-modal.svg" alt=""></button>
         </div>
         <small>Are you sure you want to delete this pot? This action cannot be reversed, and all the data inside it will
           be removed forever.</small>
-        <button class="btn btn--danger">Yes, Confirm Deletion</button>
-        <button class="btn--transparent">No, Go Back</button>
+        <button data-delete="delete-pot" class="btn btn--danger">Yes, Confirm Deletion</button>
+        <button data-collapse-trigger="collapse-delete-pot" class="btn--transparent">No, Go Back</button>
 
       </div>
     </div>
-    <div class="modal">
+    <div data-modal="withdraw-modal" data-collapse="collapse-withdraw-pot" class="modal">
       <div class="card modal__card">
         <div class="card-heading">
           <h1>Withdraw from 'Savings'</h1>
-          <button><img src="./assets/images/icon-close-modal.svg" alt=""></button>
+          <button data-collapse-trigger="collapse-withdraw-pot"><img src="./assets/images/icon-close-modal.svg" alt=""></button>
         </div>
         <small>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh
           nec urna. In nisi neque, aliquet.</small>
-          <div class="flex-between">
-            <small>New Amount</small>
-            <h2>123</h2>
-          </div>
-          <div class="progress-bar">
-            <div class="inner-bar"></div>
-          </div>
-          <div class="flex-between">
-            <small>7.95%</small>
-            <small>Target of 123</small>
-          </div>
-          <div class="form__wrapper">
-            <label for="">Amount to Withdraw</label>
-            <input class="input" type="number" name="withdraw" id="withdraw" placeholder="$">
-          </div>
-          <button class="btn btn--dark">Confirm Withdraw</button>
-        
+        <div class="flex-between">
+          <small>New Amount</small>
+          <h2>123</h2>
+        </div>
+        <div class="bar pots-progress">
+          <div data-progress="pot-withdraw-progress" class="bar--inner"></div>
+        </div>
+        <div class="flex-between">
+          <small>7.95%</small>
+          <small>Target of 123</small>
+        </div>
+        <form id="withdrawPotForm" class="form__wrapper">
+          <label for="">Amount to Withdraw</label>
+          <input data-withdraw="pot-withdraw-amount" class="input" type="number" name="withdraw" id="withdraw"
+            placeholder="$">
+            <button type="submit" data-confirm="confirm-withdraw-pot" class="btn btn--dark">Confirm Withdraw</button>
+        </form>
       </div>
     </div>
-    <div class="modal">
+    <div data-modal="add-modal" data-collapse="collapse-add-pot" class="modal">
       <div class="card modal__card">
         <div class="card-heading">
           <h1>Add to 'Savings'</h1>
-          <button><img src="./assets/images/icon-close-modal.svg" alt=""></button>
+          <button data-collapse-trigger="collapse-add-pot"><img src="./assets/images/icon-close-modal.svg" alt=""></button>
         </div>
         <small>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit. Pellentesque aliquet nibh
           nec urna. In nisi neque, aliquet.</small>
-          <div class="flex-between">
-            <small>New Amount</small>
-            <h2>123</h2>
-          </div>
-          <div class="progress-bar">
-            <div class="inner-bar"></div>
-          </div>
-          <div class="flex-between">
-            <small>7.95%</small>
-            <small>Target of 123</small>
-          </div>
-          <div class="form__wrapper">
-            <label for="">Amount to Add</label>
-            <input class="input" type="number" name="withdraw" id="withdraw" placeholder="$">
-          </div>
-          <button class="btn btn--dark">Confirm Addition</button>
-        
+        <div class="flex-between">
+          <small>New Amount</small>
+          <h2>123</h2>
+        </div>
+        <div class="bar pots-progress">
+          <div data-progress="add-pot-progress" class="bar--inner"></div>
+        </div>
+        <div class="flex-between">
+          <small>7.95%</small>
+          <small>Target of 123</small>
+        </div>
+        <form class="form__wrapper">
+          <label for="">Amount to Add</label>
+          <input data-add="add-pot-amount" class="input" type="number" name="add-pot" id="add-pot" placeholder="$">
+          <button type="submit" data-submit="add-pot-btn" class="btn btn--dark">Confirm Addition</button>
+        </form>
+
       </div>
     </div>
   </div>
+  <script src="./js/main.js" type="module"></script>
 </body>
 
 </html>
