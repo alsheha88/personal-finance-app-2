@@ -42,8 +42,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/alsheha88/personal-finance-app-2)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [https://github.com/alsheha88/personal-finance-app-2]
+- Live Site URL: [https://alsheha88.github.io/personal-finance-app-2/]
 
 ## My process
 
@@ -73,6 +73,6 @@ I would need to focus more on localStorage functionality and code optimization a
 
 ## Author
 
-- Website - [Add your name here](https://alsheha88.github.io/)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/alsheha88)
+- Website - [Abdulaziz AlSheeha](https://alsheha88.github.io/)
+- Frontend Mentor - [@alsheha88](https://www.frontendmentor.io/profile/alsheha88)
 
