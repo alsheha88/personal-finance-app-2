@@ -76,12 +76,9 @@
     .budgets-summary{
         grid-template-columns: 1fr 1fr;
     }
-    .budgets-card{
-
-    }
 
 }
-@media (max-width: 500px) {
+@media (max-width: 740px) {
     .budgets-summary{
         grid-template-columns: 1fr;
         padding: var(--space-300) var(--space-250);
@@ -90,4 +87,14 @@
         padding: var(--space-300) var(--space-250);
     }
 
+}
+
+@media (max-width: 400px){
+    .page-heading{
+        flex-direction: column;
+        align-items: center;
+    }
+    .page-heading h1{
+        margin-bottom: var(--space-150);
+    }
 }

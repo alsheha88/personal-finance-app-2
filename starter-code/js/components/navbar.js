@@ -2,7 +2,6 @@
 const minimizeBtn = document.querySelector('[data-minimize]');
 const showNavBtn = document.querySelector('#show-nav');
 function toggleNav(e){
-    console.log(showNavBtn)
     if (e.currentTarget === minimizeBtn){
         document.querySelector('nav').classList.add('collapse');
         document.querySelector('#show-nav').classList.add('show-nav')

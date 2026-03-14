@@ -92,10 +92,7 @@ button span{
     height: 100%;
 }
 
-@media (max-width: 800px) {
-
-}
-@media (max-width: 600px) {
+@media (max-width: 740px) {
     .transactions-content{
         padding: var(--space-300) var(--space-250);
     }
@@ -125,6 +122,9 @@ button span{
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    #sort-btn{
+        display: none;
     }
     
     [data-pagination] span{

@@ -120,7 +120,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 740px) {
     .overview-cards{
         gap: var(--space-200);
     }

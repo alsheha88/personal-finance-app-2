@@ -1,8 +1,9 @@
-import { fetchData } from "../data/fetch.js";
 import { calculateTotal, formatAmount, formatDate } from "../utility.js";
+import { initDropdown } from "../components/dropdowns.js";
+import { getLocalStorage } from "../localStorage.js";
 
 
-const data = await fetchData();
+const data = await getLocalStorage();
 const todaysDate = new Date("2024-08-19T12:00:09Z").getDate();
 const currentMonth = new Date("2024-08-19T12:00:09Z").getMonth() + 1;
 const billState = {
@@ -32,7 +33,6 @@ billState.currentMonthBills = Object.values(
 
 );
 
-console.log(billState.recurringBills)
 
 function getBillsSummary(){
       const totalPaidBills =  Math.abs(calculateTotal(billState.paidBills));
@@ -78,8 +78,7 @@ function colorCodeByDate(date){
 
 function searchBills(e){
   const searchResults = billState.recurringBills.filter((item) => item.name.toLowerCase().includes(e.target.value))
-  console.log(searchResults)
-  if (searchResults && e.target.value !== ''){
+  if (e.target.value !== ''){
     document.querySelector('#bills-table').innerHTML = searchResults.map((item) => {
       const { color, icon } = colorCodeByDate(item.date)
 
@@ -101,9 +100,58 @@ function searchBills(e){
   } else {
     document.querySelector('#bills-table').innerHTML = getRecurringBills();
   }
+}
+function sortBills(arr){
+document.querySelector('#bills-table').innerHTML = 
+      arr.map((item) => {
+            const { color, icon } = colorCodeByDate(item.date)
+           return` <div class="bills-row">
+                    <div class="image-title">
+                      <img src="${item.avatar}" alt="">
+                      
+                      <h4>${item.name}</h4>
+                    </div>
+                    <div class="bill-frequency">
+                      <small style="color: ${color}">${formatDate(item.date)}</small>
+                      <img src="${icon}" alt="">
+                    </div>
+                    <div class="bill-amount">
+                      <h4 style="color: ${color}">${formatAmount(item.amount, false)}</h4>
+                    </div>
+                  </div>`
+
+      }).join('')
+}
+function renderSortedBills(e){
+  document.querySelector('[data-dropdown-menu="bills-sort"]').classList.remove('show-dropdown');
+  document.querySelector('#sort-btn').innerHTML = `
+                  <span>${e.target.innerText}</span>
+                  <img src="./assets/images/icon-caret-down.svg" alt="">
+                `
+  if (e.currentTarget.dataset.sort === 'latest'){
+    billState.recurringBills.sort((a,b) => new Date(b.date)  - new Date(a.date))
+    sortBills(billState.recurringBills)
+  } else if (e.currentTarget.dataset.sort === 'oldest'){
+    billState.recurringBills.sort((a,b) => new Date(a.date)  - new Date(b.date))
+    sortBills(billState.recurringBills)
+
+  } else if (e.currentTarget.dataset.sort === 'atoz'){
+    billState.recurringBills.sort((a,b) => a.name.localeCompare(b.name))
+    sortBills(billState.recurringBills)
+  } else if (e.currentTarget.dataset.sort === 'ztoa'){
+    billState.recurringBills.sort((a,b) => b.name.localeCompare(a.name))
+    sortBills(billState.recurringBills)
+  } else if (e.currentTarget.dataset.sort === 'highest'){
+    billState.recurringBills.sort((a,b) => a.amount - b.amount)
+    sortBills(billState.recurringBills)
+  } else if (e.currentTarget.dataset.sort === 'lowest'){
+    billState.recurringBills.sort((a,b) => b.amount - a.amount)
+    sortBills(billState.recurringBills)
+  } else {
+    document.querySelector('#bills-table').innerHTML = getRecurringBills();
+  }
 
 }
-
 function getRecurringBills(){
       const sortBillsByDate = billState.currentMonthBills.sort((a,b) => new Date(a.date)  - new Date(b.date))
       return `
@@ -132,6 +180,7 @@ function renderRecurringBills(){
       document.querySelector('#bills-table').innerHTML = getRecurringBills();
 
       document.querySelector('[data-search="search-bills"]').addEventListener('input', searchBills)
+      document.querySelectorAll('[data-sort]').forEach((btn) => btn.addEventListener('click', renderSortedBills))
 
 }
 export function initRecurringBills() {

@@ -1,12 +1,16 @@
 import { initDropdown } from "../components/dropdowns.js";
 import { initModal } from "../components/modals.js";
-import { fetchData } from "../data/fetch.js";
 import { calculateTotal, formatAmount, formatDate } from "../utility.js";
+import { getLocalStorage, setLocalStorage } from "../localStorage.js";
+import { generatePieChart } from "../components/pieChart.js";
+import { calculatePieData } from "../components/pieChart.js";
+import { polarToCart } from "../components/pieChart.js";
+import { makeSlicePath } from "../components/pieChart.js";
+
  
  
-const data = await fetchData();
- 
- 
+const data = await getLocalStorage();
+
 const budgetsState = {
       budgetSummary: [],
       budgetTransactions: [],
@@ -16,9 +20,7 @@ const budgetsState = {
       themeSelected: '',
       categorySelected: '',
 }
- 
 budgetsState.budgetSummary = data.budgets;
- 
 budgetsState.budgetCategory = budgetsState.budgetSummary.map((item) => {return item.category})
 budgetsState.budgetTransactions = data.transactions.filter((item) => {return budgetsState.budgetCategory.includes(item.category)});
 budgetsState.budgetTransactionsAmounts = budgetsState.budgetTransactions.reduce((acc, item) => {
@@ -111,17 +113,8 @@ function getBudgetSummary(){
   return `<div class="card budgets-summary">      
         <div class="test">
               <div class="pie-chart-wrapper">
-                <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M119.984 119.984L119.984 0C135.468 0 150.806 2.997 165.151 8.82566L119.984 119.984Z"
-                    fill="#277C78" />
-                  <path
-                    d="M119.984 119.984L165.15 8.82565C226.541 33.7702 256.087 103.759 231.142 165.15C206.198 226.541 136.209 256.087 74.8179 231.142C47.9299 220.217 25.9133 199.917 12.8472 174.001L119.984 119.984Z"
-                    fill="#82C9D7" />
-                  <path
-                    d="M119.984 119.984L12.8474 174.001C-6.20309 136.217 -3.94214 91.1917 18.7976 55.5058L119.984 119.984Z"
-                    fill="#F2CDAC" />
-                  <path d="M119.984 119.984L18.7974 55.5058C40.8285 20.932 78.9874 0 119.984 0V119.984Z"
-                    fill="#626070" />
+                <svg id="pieChart" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">               
+                    ${generatePieChart(budgetsState.budgetSummary, getTotalPerCategory)}
                 </svg>
                 <div class="transparent-cricle">
                   <div class="white-cirlce">
@@ -255,6 +248,8 @@ function openDeleteBudgetModal(btn){
             delete budgetsState.budgetTransactionsAmounts[selectedItem.category]
             delete budgetsState.budgetTransactions[selectedItem.category]
             budgetsState.budgetCategory = budgetsState.budgetCategory.filter(c => c !== selectedItem.category)
+            data.budgets = budgetsState.budgetSummary;
+            setLocalStorage(data)
  
             document.querySelector('#budgets-summary').innerHTML = getBudgetSummary()
             document.querySelector('.budgets-card-wrapper').removeChild(btn.closest('[data-budget]'))
@@ -281,6 +276,7 @@ function openEditBudgetModal(btn){
         initModal()
         disableExistingCategories(selectedItem.category)
         disableUsedThemes(selectedItem.theme)
+
     }
 }
  
@@ -308,10 +304,49 @@ function handleThemeSelection(e){
     }
 }
 
+// function calculatePieData(){
+//     const totalSpending = budgetsState.budgetSummary.reduce((acc, item) => {
+//         return acc + getTotalPerCategory(item.category)
+//     }, 0)
+
+//     return budgetsState.budgetSummary.map((item) => {
+//         return {
+//             value: getTotalPerCategory(item.category),
+//             color: item.theme
+//         }
+//     })
+// }
+
+// function polarToCart(angleDeg){
+//     const rad = (angleDeg - 90) * Math.PI / 180
+//     return [
+//         119.984 + 119.984 * Math.cos(rad),
+//         119.984 + 119.984 * Math.sin(rad)
+//     ]
+// }
+// function makeSlicePath(startAngle, endAngle){
+//     const [x1, y1] = polarToCart(startAngle)
+//     const [x2, y2] = polarToCart(endAngle)
+//     const largeArc = (endAngle - startAngle) > 180 ? 1 : 0
+//     return `M 119.984 119.984 L ${x1} ${y1} A 119.984 119.984 0 ${largeArc} 1 ${x2} ${y2} Z`
+// }
+// function generatePieChart(){
+//     const pieData = calculatePieData()
+//     const total = pieData.reduce((acc, item) => acc + item.value, 0)
+//     let startAngle = 0
+
+//     const paths = pieData.map((item) => {
+//         const endAngle = startAngle + (item.value / total) * 360
+//         const path = makeSlicePath(startAngle, endAngle)
+//         startAngle = endAngle
+//         return `<path d="${path}" fill="${item.color}" />`
+//     }).join('')
+
+//     return paths
+// }
 function renderBudgets(){
     document.querySelector('#budgets-summary').innerHTML = getBudgetSummary();
     document.querySelector('.budgets-card-wrapper').innerHTML = getBudgetCard();
- 
     document.querySelector('.budgets-card-wrapper').addEventListener('click', (e) => {
         const deleteBudgetTriggerBtn = e.target.closest('[data-modal-trigger="delete-budget-modal"]')
         const editBudgetTriggerBtn = e.target.closest('[data-modal-trigger="edit-budget-modal"]')
@@ -320,10 +355,8 @@ function renderBudgets(){
         if (editBudgetTriggerBtn) openEditBudgetModal(editBudgetTriggerBtn)
     })
  
-    // handle theme and category selection across all modals
     document.addEventListener('click', handleThemeSelection)
  
-    // open new budget modal
     document.querySelector('[data-modal-trigger="new-budget-modal"]')?.addEventListener('click', () => {
         document.querySelector('[data-modal="new-budget-modal"]').classList.add('show-modal')
         budgetsState.themeSelected = ''
@@ -349,6 +382,9 @@ function renderBudgets(){
         const categoryTransactions = data.transactions.filter(item => item.category === category)
         budgetsState.budgetTransactions[category] = categoryTransactions
         budgetsState.budgetTransactionsAmounts[category] = categoryTransactions.map(item => item.amount)
+
+        data.budgets = budgetsState.budgetSummary;
+        setLocalStorage(data)
  
         document.querySelector('#budgets-summary').innerHTML = getBudgetSummary()
         document.querySelector('.budgets-card-wrapper').innerHTML = getBudgetCard()
@@ -374,14 +410,17 @@ function renderBudgets(){
             budgetsState.budgetTransactionsAmounts[category] = newCategoryTransactions.map(item => item.amount)
             delete budgetsState.budgetTransactions[budgetsState.selectedBudget.category]
             delete budgetsState.budgetTransactionsAmounts[budgetsState.selectedBudget.category]
+            
             budgetsState.budgetCategory[budgetsState.budgetCategory.indexOf(budgetsState.selectedBudget.category)] = category
-        }
- 
-        budgetsState.budgetSummary[index] = { category, maximum, theme }
- 
-        document.querySelector('#budgets-summary').innerHTML = getBudgetSummary()
-        document.querySelector('.budgets-card-wrapper').innerHTML = getBudgetCard()
-        document.querySelector('[data-modal="edit-budget-modal"]').classList.remove('show-modal')
+          }
+          
+          budgetsState.budgetSummary[index] = { category, maximum, theme }
+          data.budgets = budgetsState.budgetSummary;
+          setLocalStorage(data)
+          
+          document.querySelector('#budgets-summary').innerHTML = getBudgetSummary()
+          document.querySelector('.budgets-card-wrapper').innerHTML = getBudgetCard()
+          document.querySelector('[data-modal="edit-budget-modal"]').classList.remove('show-modal')
  
         initDropdown()
         initModal()

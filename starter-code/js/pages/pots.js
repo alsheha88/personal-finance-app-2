@@ -1,10 +1,9 @@
 import { initDropdown } from "../components/dropdowns.js";
 import { initModal } from "../components/modals.js";
-import { fetchData } from "../data/fetch.js";
 import { formatAmount } from "../utility.js";
+import { getLocalStorage, setLocalStorage } from "../localStorage.js";
 
-const apiResponse = await fetchData();
-const initialPotsData = apiResponse.pots;
+const data = await getLocalStorage();
 
 const potState = {
     pots: [],
@@ -13,7 +12,7 @@ const potState = {
 
 }
 
-potState.pots = initialPotsData;
+potState.pots = data.pots;
 function generatePotsMarkup(){
     return potState.pots.map((item) => {
         return `<div class="card card--compact pots-card" data-pot="${item.name.trim()}">
@@ -107,7 +106,6 @@ function createAddAmountModalMarkup({name, theme, total, target}){
 function openAddAmountModal(btn){
     const clickedPotName = btn.closest('[data-pot]').dataset.pot
     const selectedPot = btn.closest('[data-pot]');
-    console.log(selectedPot)
     const selectedItem = potState.pots.find((item) => item.name.trim() === clickedPotName);
     const index = potState.pots.findIndex((pot) => pot.name === selectedItem.name);
     if (selectedItem){
@@ -143,7 +141,9 @@ function openAddAmountModal(btn){
             progressBar.style.width = `${updatedProgress > 100 ? 100 : updatedProgress}%`
             updatedPercentage.innerHTML = `${updatedProgress > 100 ? 100 : updatedProgress}%`
 
-            potState.pots[index].total = progress + addPotMoney;            
+            potState.pots[index].total = progress + addPotMoney;
+            data.pots = potState.pots;
+            setLocalStorage(data)            
             document.querySelector('[data-modal="add-modal"]').classList.remove('show-modal')
         })
     }
@@ -222,6 +222,8 @@ function openWithdrawAmountModal(btn){
             document.querySelector('[data-modal="withdraw-modal"]').classList.remove('show-modal');
 
             potState.pots[index].total = progress - potWithdrawAmount;
+            data.pots = potState.pots;
+            setLocalStorage(data)
             
         })
     }
@@ -291,6 +293,8 @@ function openDeletePotModal(btn){
           document.querySelector('[data-modal="delete-pot-modal"]').classList.remove('show-modal')
           const potIndex = potState.pots.indexOf(selectedItem)
           potState.pots.splice(potIndex, 1);
+          data.pots = potState.pots;
+          setLocalStorage(data)
           document.querySelector('.pots-section').removeChild(btn.closest('[data-pot]'))
 
     })
@@ -300,7 +304,6 @@ function openDeletePotModal(btn){
 
 function editPotCard(btn, theme, target, name){
   const clickedPotName = btn.closest('[data-pot]').dataset.pot;
-  console.log(clickedPotName)
   const selectedItem = potState.pots.find((item) => item.name.trim() === clickedPotName);
   const selectedPot = btn.closest('[data-pot]');
   const index = potState.pots.findIndex((pot) => pot.name === selectedItem.name);
@@ -318,6 +321,8 @@ function editPotCard(btn, theme, target, name){
   potState.pots[index].name = name;
   potState.pots[index].target = target;
   potState.pots[index].theme = theme;
+  data.pots = potState.pots;
+  setLocalStorage(data)
 
   document.querySelector('[data-modal="edit-pot-modal"]').classList.remove('show-modal')  
 }
@@ -347,6 +352,8 @@ function renderPotsPage(){
             theme: potState.themeSelected
         }
         potState.pots.push(inputData)
+        data.pots = potState.pots;
+        setLocalStorage(data)
         document.querySelector('.pots-section').insertAdjacentHTML('beforeend', createPotCardMarkup(inputData))
         initDropdown()
         initModal()
@@ -356,7 +363,6 @@ function renderPotsPage(){
       const name = document.querySelector('[data-name="pot-name-edit"]').value;
       const target = document.querySelector('[data-target="edit-target"]').value;
       const btn = document.querySelector('[data-modal-trigger="edit-pot-modal"]');
-      console.log(name, target)
       editPotCard(btn ,potState.themeSelected, target, name, 0)
     })
     initDropdown()

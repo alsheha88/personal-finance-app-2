@@ -8,7 +8,6 @@ import { initDropdown } from "./components/dropdowns.js";
 import { initModal } from "./components/modals.js";
 
 
-
 initNavBar();
 initModal();
 initDropdown()

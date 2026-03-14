@@ -135,7 +135,7 @@ nav button:hover svg path {
 	}
 }
 
-@media (max-width: 500px){
+@media (max-width: 700px){
 	.nav-links a span{
 		display: none;
 	}

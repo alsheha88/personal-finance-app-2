@@ -1,10 +1,15 @@
 import { fetchData } from "../data/fetch.js";
+import { getLocalStorage } from "../localStorage.js";
 import { formatAmount } from "../utility.js";
 import { formatDate } from "../utility.js";
 import { filterData } from "../utility.js";
 import { calculateTotal } from "../utility.js";
+import { generatePieChart } from "../components/pieChart.js";
+import { calculatePieData } from "../components/pieChart.js";
+import { polarToCart } from "../components/pieChart.js";
+import { makeSlicePath } from "../components/pieChart.js";
 
-const data = await fetchData();
+const data = await getLocalStorage();
 
 const overviewState = {
 	dataLength: 4,
@@ -98,24 +103,31 @@ function getBudgets() {
 		.reduce((acc, currentValue) => {
 			return acc + currentValue;
 		}, 0);
+    const budgetCategory = overviewState.budgetsOverview.map((item) => {return item.category})
+    const budgetTransactions = data.transactions.filter((item) => {return budgetCategory.includes(item.category)});
+    const totalSpentArr = budgetTransactions.reduce((acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item.amount);
+            return acc;
+    }, {})
+    function getTotalForOverview(category){
+    if (totalSpentArr[category]){
+        return Math.abs(totalSpentArr[category].reduce((acc, amount) => acc + amount, 0))
+    }
+    return 0
+  }
+    const spentAmount = Math.abs(Object.values(totalSpentArr).flat().reduce((acc, item) => {return acc + item}, 0))
 
 	return `<div class="test">
                 <div class="pie-chart-wrapper">
                   <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M119.984 119.984L119.984 0C135.468 0 150.806 2.997 165.151 8.82566L119.984 119.984Z"
-                      fill="#277C78" />
-                    <path
-                      d="M119.984 119.984L165.15 8.82565C226.541 33.7702 256.087 103.759 231.142 165.15C206.198 226.541 136.209 256.087 74.8179 231.142C47.9299 220.217 25.9133 199.917 12.8472 174.001L119.984 119.984Z"
-                      fill="#82C9D7" />
-                    <path
-                      d="M119.984 119.984L12.8474 174.001C-6.20309 136.217 -3.94214 91.1917 18.7976 55.5058L119.984 119.984Z"
-                      fill="#F2CDAC" />
-                    <path d="M119.984 119.984L18.7974 55.5058C40.8285 20.932 78.9874 0 119.984 0V119.984Z"
-                      fill="#626070" />
+                    ${generatePieChart(overviewState.budgetsOverview, getTotalForOverview)}
                   </svg>
                   <div class="transparent-cricle">
                     <div class="white-cirlce">
-                      <h2>$${380}</h2>
+                      <h2>${formatAmount(spentAmount, false)}</h2>
                       
                       <small>of $${totalBudgets} limit</small>
                     </div>

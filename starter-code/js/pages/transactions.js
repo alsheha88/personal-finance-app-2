@@ -1,8 +1,10 @@
 import { fetchData } from "../data/fetch.js";
 import { formatAmount, formatDate } from "../utility.js";
+import { getLocalStorage } from "../localStorage.js";
 
 
-const data = await fetchData();
+
+const data = await getLocalStorage();
 
 const transactionState = {
       transactions: [],
@@ -110,10 +112,125 @@ function handleNextandPreviuosPages(e){
       const endIndex = startIndex + transactionState.itemsPerPage;
       renderTransactionsPages(startIndex, endIndex)
 }
-function renderTransactions(){
-      document.querySelector('.transactions-content').insertAdjacentHTML('beforeend', getInitialTransactions())
+function sortTransactions(e){
+      const startIndex = (transactionState.currentPage - 1) * transactionState.itemsPerPage;
+      const endIndex = startIndex + transactionState.itemsPerPage;
+      document.querySelector('[data-dropdown-menu="transactions-sort"]').classList.remove('show-dropdown');
+      document.querySelector('#sort-btn').innerHTML = `
+                  <span>${e.target.innerText}</span>
+                  <img src="./assets/images/icon-caret-down.svg" alt="">
+                `
+      if (e.currentTarget.dataset.sort === 'latest'){
+      transactionState.transactions.sort((a,b) => new Date(b.date)  - new Date(a.date))
+      renderTransactionsPages(startIndex, endIndex)
+      } else if (e.currentTarget.dataset.sort === 'oldest'){
+      transactionState.transactions.sort((a,b) => new Date(a.date)  - new Date(b.date))
+      renderTransactionsPages(startIndex, endIndex)
+
+      } else if (e.currentTarget.dataset.sort === 'atoz'){
+      transactionState.transactions.sort((a,b) => a.name.localeCompare(b.name))
+      renderTransactionsPages(startIndex, endIndex)
+      } else if (e.currentTarget.dataset.sort === 'ztoa'){
+      transactionState.transactions.sort((a,b) => b.name.localeCompare(a.name))
+      renderTransactionsPages(startIndex, endIndex)
+      } else if (e.currentTarget.dataset.sort === 'highest'){
+      transactionState.transactions.sort((a,b) => Math.abs(b.amount) - Math.abs(a.amount))
+      renderTransactionsPages(startIndex, endIndex)
+      } else if (e.currentTarget.dataset.sort === 'lowest'){
+      transactionState.transactions.sort((a,b) => Math.abs(a.amount) - Math.abs(b.amount))
+      renderTransactionsPages(startIndex, endIndex)
+      } else {
+            document.querySelector('.transactions-content').insertAdjacentHTML('beforeend', getInitialTransactions())
+      }
+      
+}
+function filterTransactions(e){
+    const filterValue = e.currentTarget.dataset.filter
+    const filterText = e.currentTarget.textContent.trim()
+    
+    document.querySelector('[data-dropdown-menu="transactions-category"]').classList.remove('show-dropdown')
+    document.querySelector('#dropdown-btn span').textContent = filterText
+
+    transactionState.currentPage = 1
+    const startIndex = 0
+    const endIndex = transactionState.itemsPerPage
+
+    if (filterValue === 'all'){
+        renderTransactionsPages(startIndex, endIndex)
+        document.querySelector('.pagination-wrapper').innerHTML = createPaginationBtns(totalPages)
+    } else {
+        const filtered = transactionState.transactions.filter(item => item.category.toLowerCase().replace(' ', '-') === filterValue)
+        const pages = Math.ceil(filtered.length / transactionState.itemsPerPage)
+        document.querySelector('#transaction-table').innerHTML = filtered.slice(startIndex, endIndex).map((item) => {
+            return `<div class="table-row">
+                <div class="image-title">
+                    <img src="${item.avatar}" alt="">
+                    <h4>${item.name}</h4>
+                </div>
+                <div class="transaction-category">
+                    <small>${item.category}</small>
+                </div>
+                <div class="transaction-date">
+                    <small>${formatDate(item.date)}</small>
+                </div>
+                <div class="transaction-amount">
+                    <h4 style="color: ${formatAmount(item.amount, true).includes('+') ? 'var(--color-green)' : ''}">${formatAmount(item.amount, true)}</h4>
+                </div>
+            </div>`
+        }).join('')
+        document.querySelector('.pagination-wrapper').innerHTML = createPaginationBtns(pages)
+    }
+
+    document.querySelectorAll('[data-page]').forEach((btn) => btn.addEventListener('click', handlePagination))
+    document.querySelectorAll('[data-pagination]').forEach((btn) => btn.addEventListener('click', handleNextandPreviuosPages))
+}
+function searchTransactions(e){
+      const searchResults = transactionState.transactions.filter((item) => item.name.toLowerCase().includes(e.target.value))
+      let pages = Math.ceil(searchResults.length / transactionState.itemsPerPage);
+      transactionState.currentPage = 1;
+      const startIndex = (transactionState.currentPage - 1) * transactionState.itemsPerPage;
+      const endIndex = startIndex + transactionState.itemsPerPage;
+      if (e.target.value !== ''){
+      document.querySelector('#transaction-table').innerHTML = `
+      ${searchResults.slice(startIndex, endIndex).map((item) => {
+            return `<div class="table-row">
+                  <div class="image-title">
+                  <img src="${item.avatar}" alt="">
+                  <h4>${item.name}</h4>
+                  </div>
+                  <div class="transaction-category">
+                  <small>${item.category}</small>
+                  </div>
+                  <div class="transaction-date">
+                  <small>${formatDate(item.date)}</small>
+                  </div>
+                  <div class="transaction-amount">
+                  <h4 style="color: ${formatAmount(item.amount, true).includes('+') ?  'var(--color-green)' : ''} ">${formatAmount(item.amount, true)}</h4>
+                  </div>
+            </div>`
+
+      }).join('')}`
+      document.querySelector('.btn-row').innerHTML = `
+      <button data-pagination="previous" class="btn btn--light"><img src="./assets/images/icon-caret-left.svg"
+            alt=""> <span>Prev</span></button>
+      <div class="pagination-wrapper">
+      ${createPaginationBtns(pages)}
+      </div>
+      <button data-pagination="next" class="btn btn--light"> <span>Next</span> <img
+            src="./assets/images/icon-caret-right.svg" alt=""></button>
+       `
+      }
       document.querySelectorAll('[data-page]').forEach((btn) => btn.addEventListener('click', handlePagination))
       document.querySelectorAll('[data-pagination]').forEach((btn) => btn.addEventListener('click', handleNextandPreviuosPages))
+}
+function renderTransactions(){
+      document.querySelector('.transactions-content').insertAdjacentHTML('beforeend', getInitialTransactions())
+      document.querySelector('[data-search="search-transaction"]').addEventListener('input', searchTransactions)
+      document.querySelectorAll('[data-page]').forEach((btn) => btn.addEventListener('click', handlePagination))
+      document.querySelectorAll('[data-pagination]').forEach((btn) => btn.addEventListener('click', handleNextandPreviuosPages))
+      document.querySelectorAll('[data-sort]').forEach((btn) => btn.addEventListener('click', sortTransactions))
+      document.querySelectorAll('[data-filter]').forEach((btn) => btn.addEventListener('click', filterTransactions))
+
 
 }
 export function initTransactions() {

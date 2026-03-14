@@ -61,4 +61,10 @@
 	.pots-card {
 		padding-inline: var(--space-250);
 	}
+	.pots-card-btns{
+		grid-template-columns: 1fr;
+	}
+	.pots-progress-wrapper .flex-between:first-child{
+		flex-direction: column;
+	}
 }
