@@ -74,45 +74,6 @@
       <div class="budgets-section">
         <div id="budgets-summary">
           <div class="card budgets-summary">
-            <!-- Add budgets data -->
-            <!-- add data attribute -->
-            <div class="test">
-              <div class="pie-chart-wrapper">
-                <svg viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M119.984 119.984L119.984 0C135.468 0 150.806 2.997 165.151 8.82566L119.984 119.984Z"
-                    fill="#277C78" />
-                  <path
-                    d="M119.984 119.984L165.15 8.82565C226.541 33.7702 256.087 103.759 231.142 165.15C206.198 226.541 136.209 256.087 74.8179 231.142C47.9299 220.217 25.9133 199.917 12.8472 174.001L119.984 119.984Z"
-                    fill="#82C9D7" />
-                  <path
-                    d="M119.984 119.984L12.8474 174.001C-6.20309 136.217 -3.94214 91.1917 18.7976 55.5058L119.984 119.984Z"
-                    fill="#F2CDAC" />
-                  <path d="M119.984 119.984L18.7974 55.5058C40.8285 20.932 78.9874 0 119.984 0V119.984Z"
-                    fill="#626070" />
-                </svg>
-                <div class="transparent-cricle">
-                  <div class="white-cirlce">
-                    <h2>123</h2>
-                    <small>of $123 limit</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="spending-summary">
-              <h3>Spending Summary</h3>
-              <div>
-                <div class="budget-item">
-                  <div class="budget-badge">
-                    <span class="badge"></span>
-                    <small>Entertainment</small>
-                  </div>
-                  <div class="flex gap-100">
-                    <h4>15</h4>
-                    <p>of 50</p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="budgets-card-wrapper">
@@ -140,71 +101,11 @@
               </div>
             </div>
             <div class="budgets-progress-wrapper">
-              <p>Maximum of $50.00</p>
-              <div class="bar budgets-progress">
-                <div data-progress="budget-progress" class="bar--inner"></div>
-              </div>
-              <div class="grid grid-column">
-                <div class="budget-badge">
-                  <span class="badge"></span>
-                  <div>
-                    <small>Spent</small>
-                    <h5>$15.00</h5>
-                  </div>
-                </div>
-                <div class="budget-badge">
-                  <span class="badge"></span>
-                  <div>
-                    <small>Remaining</small>
-                    <h5>$30.00</h5>
-                  </div>
-                </div>
-              </div>
             </div>
             <div class="budgets-table">
               <div class="flex-between">
                 <h3>Latest Spending</h3>
                 <a class="flex gap-150" href="#">See All <img src="./assets/images/icon-caret-right.svg" alt=""></a>
-              </div>
-              <div class="budgets-row">
-                <div>
-                  <img src="" alt="">
-                  <h5>James Thompson</h5>
-                </div>
-                <div>
-                  <h5>-$5.00</h5>
-                  <small>11 Aug 2024</small>
-                </div>
-              </div>
-              <div class="budgets-row">
-                <div>
-                  <img src="" alt="">
-                  <h5>James Thompson</h5>
-                </div>
-                <div>
-                  <h5>-$5.00</h5>
-                  <small>11 Aug 2024</small>
-                </div>
-              </div>
-              <div class="budgets-row">
-                <div>
-                  <img src="" alt="">
-                  <h5>James Thompson</h5>
-                </div>
-                <div>
-                  <h5>-$5.00</h5>
-                  <small>11 Aug 2024</small>
-                </div>
-              </div>
-              <div class="budgets-row">
-                <div>
-                  <img src="" alt="">
-                  <h5>James Thompson</h5>
-                </div>
-                <div>
-                  <h5>-$5.00</h5>
-                  <small>11 Aug 2024</small>
-                </div>
               </div>
             </div>
           </div>
@@ -481,17 +382,6 @@
     </div>
   </div>
   <div data-modal="delete-budget-modal" data-collapse="collapse-delete-budget" class="modal">
-    <div class="card modal__card">
-      <div class="card-heading">
-        <h1>Delete 'Entertainment'?</h1>
-        <button data-collapse-trigger="delete-budget"><img src="./assets/images/icon-close-modal.svg"
-            alt=""></button>
-      </div>
-      <small>Are you sure you want to delete this budget? This action cannot be reversed, and all the data inside it
-        will be removed forever.</small>
-      <button data-delete="delete-budget" class="btn btn--danger">Yes, Confirm Deletion</button>
-      <button data-collapse-trigger="collapse-delete-budget" class="btn--transparent">No, Go Back</button>
-    </div>
   </div>
 
   <script src="./js/main.js" type="module"></script>
