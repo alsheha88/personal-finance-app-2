@@ -99,9 +99,10 @@ function createAddAmountModalMarkup({name, theme, total, target}){
       </div>`
 }
 function openAddAmountModal(btn){
-    const { clickedPotName, selectedItem, index } = getSelectedPot(btn)
+    const { clickedPotName, selectedItem, index, selectedPot } = getSelectedPot(btn)
     if (selectedItem){
         potState.selectedPot = selectedItem
+        
         document.querySelector('[data-modal="add-modal"]').innerHTML = createAddAmountModalMarkup(selectedItem)
         initModal()
         const progress = selectedItem.total;
@@ -126,6 +127,7 @@ function openAddAmountModal(btn){
             const progressBar = selectedPot.querySelector('.pots-progress-wrapper .pots-progress .bar--inner');
             const totalSaved = selectedPot.querySelector('.pots-progress-wrapper [data-total="total-saved"]');
             const updatedPercentage = selectedPot.querySelector('.pots-progress-wrapper .flex-between [data-progress="progress"]');
+            console.log(selectedPot)
             
             totalSaved.innerHTML = formatAmount((progress + addPotMoney), false);
             progressBar.style.width = `${updatedProgress > 100 ? 100 : updatedProgress}%`
@@ -169,8 +171,7 @@ function createWithdrawAmountModalMarkup({name, theme, total, target}){
 }
 
 function openWithdrawAmountModal(btn){
-    const { clickedPotName, selectedItem, index } = getSelectedPot(btn)
-    const selectedPot = btn.closest('[data-pot]');
+    const { clickedPotName, selectedItem, index, selectedPot } = getSelectedPot(btn)
 
     if (selectedItem){
         const progress = selectedItem.total;
@@ -225,7 +226,7 @@ function createDeletePotModalMarkup(name){
       </div>`
 }
 function openDeletePotModal(btn){
-  const { clickedPotName, selectedItem, index } = getSelectedPot(btn)
+  const { clickedPotName, selectedItem, index, selectedPot } = getSelectedPot(btn)
   if (selectedItem){
       potState.selectedPot = selectedItem;
       document.querySelector('[data-modal="delete-pot-modal"]').innerHTML = createDeletePotModalMarkup(selectedItem.name)
@@ -241,8 +242,7 @@ function openDeletePotModal(btn){
 }
 
 function editPotCard(btn, theme, target, name){
-  const { clickedPotName, selectedItem, index } = getSelectedPot(btn)
-  const selectedPot = btn.closest('[data-pot]');
+  const { clickedPotName, selectedItem, index, selectedPot } = getSelectedPot(btn)
 
   if (selectedItem){
     selectedPot.querySelector(`.pots-card-heading div .color-dot`).style.backgroundColor = theme;
@@ -265,7 +265,8 @@ function getSelectedPot(btn) {
   const clickedPotName = btn.closest('[data-pot]').dataset.pot
   const selectedItem = potState.pots.find((item) => item.name.trim() === clickedPotName)
   const index = potState.pots.findIndex((pot) => pot.name === selectedItem.name)
-  return { clickedPotName, selectedItem, index }
+  const selectedPot = btn.closest('[data-pot]');
+  return { clickedPotName, selectedItem, index, selectedPot }
 }
 function savePots() {
   data.pots = potState.pots
