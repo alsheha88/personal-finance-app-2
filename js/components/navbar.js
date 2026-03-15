@@ -19,6 +19,10 @@ export function initNavBar(){
         }
         
     })
-    showNavBtn.addEventListener('click', toggleNav)
-    minimizeBtn.addEventListener('click', toggleNav)
+    if (showNavBtn){
+        showNavBtn.addEventListener('click', toggleNav)
+    }
+    if (minimizeBtn){
+        minimizeBtn.addEventListener('click', toggleNav)
+    }
 }

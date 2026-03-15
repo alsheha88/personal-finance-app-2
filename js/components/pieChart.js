@@ -24,7 +24,7 @@ export function generatePieChart(budgetSummary, getTotalFn){
     const pieData = calculatePieData(budgetSummary, getTotalFn)
     const total = pieData.reduce((acc, item) => acc + item.value, 0)
     let startAngle = 0
-
+    if (!total) return ''
     const paths = pieData.map((item) => {
         const endAngle = startAngle + (item.value / total) * 360
         const path = makeSlicePath(startAngle, endAngle)
