@@ -99,7 +99,7 @@ function createAddAmountModalMarkup({name, theme, total, target}){
       </div>`
 }
 function openAddAmountModal(btn){
-    const { clickedPotName, selectedItem, index, selectedPot } = getSelectedPot(btn)
+    const { selectedItem, index, selectedPot } = getSelectedPot(btn)
     if (selectedItem){
         potState.selectedPot = selectedItem
         

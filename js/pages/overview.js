@@ -158,7 +158,7 @@ function getTransactions() {
 }
 function getBills() {
   const todaysDate = new Date("2024-08-19T12:00:09Z").getDate();
-  let paidBillsArr = [];
+  const paidBillsArr = [];
   let dueSoonBillsArr = [];
   let upcomingBillsArr = [];
 
