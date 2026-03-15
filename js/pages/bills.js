@@ -18,7 +18,7 @@ billState.recurringBills = data.transactions.filter((item) => item.recurring);
 billState.paidBills = billState.recurringBills.filter((item) => todaysDate >=  new Date(item.date).getDate() && (new Date(item.date).getMonth() + 1) === currentMonth)
 billState.dueSoonBills = billState.recurringBills.filter((item) => todaysDate < new Date(item.date).getDate() && new Date(item.date).getDate() - todaysDate <= 5)
 billState.upcomingBills = billState.recurringBills.filter((item) => todaysDate <  new Date(item.date).getDate())
-billState.currentMonthBills = billState.recurringBills.forEach(bill => {
+billState.recurringBills.forEach(bill => {
   if (bill.date.includes('2024-07')) {
     bill.date = bill.date.replace('2024-07', '2024-08')
   }
