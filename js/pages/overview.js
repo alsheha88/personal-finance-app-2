@@ -1,13 +1,6 @@
-import { fetchData } from "../data/fetch.js";
 import { getLocalStorage } from "../localStorage.js";
-import { formatAmount } from "../utility.js";
-import { formatDate } from "../utility.js";
-import { filterData } from "../utility.js";
-import { calculateTotal } from "../utility.js";
-import { generatePieChart } from "../components/pieChart.js";
-import { calculatePieData } from "../components/pieChart.js";
-import { polarToCart } from "../components/pieChart.js";
-import { makeSlicePath } from "../components/pieChart.js";
+import { formatAmount, formatDate, calculateTotal } from "../utility.js";
+import { generatePieChart, calculatePieData, polarToCart, makeSlicePath } from "../components/pieChart.js";
 
 const data = await getLocalStorage();
 
@@ -50,13 +43,7 @@ function getPots() {
 	overviewState.potsOverview = data.pots.map((item) => {
 		return { name: item.name, theme: item.theme, totalSaved: item.total };
 	});
-	const totalPots = overviewState.potsOverview
-		.map((item) => {
-			return item.totalSaved;
-		})
-		.reduce((acc, currentValue) => {
-			return acc + currentValue;
-		}, 0);
+	const totalPots = overviewState.potsOverview.reduce((acc, currentValue) => {return acc + currentValue.totalSaved;}, 0);
 
 	return `<div class="pots-total">
                 <svg fill="none" height="36" viewBox="0 0 28 36" width="28" xmlns="http://www.w3.org/2000/svg">
@@ -222,7 +209,6 @@ function getBills() {
               </div>`
 
 }
-getBills()
 function renderSummary() {
 	document.querySelector(".summary-cards").innerHTML = getSummary();
 }
