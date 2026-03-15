@@ -262,10 +262,19 @@ function editPotCard(btn, theme, target, name){
   document.querySelector('[data-modal="edit-pot-modal"]').classList.remove('show-modal')  
 }
 function getSelectedPot(btn) {
-  const clickedPotName = btn.closest('[data-pot]').dataset.pot
+  const selectedPot = btn.closest('[data-pot]')
+  const clickedPotName = selectedPot?.dataset?.pot ?? '' // safe access in case DOM shape changes
+
   const selectedItem = potState.pots.find((item) => item.name.trim() === clickedPotName)
+
+  if (!selectedItem) {
+    // No matching pot found — return a clear result so callers can handle it
+    return { clickedPotName, selectedItem: null, index: -1, selectedPot }
+  }
+
+  // Now safe to access selectedItem.name because we know it exists
   const index = potState.pots.findIndex((pot) => pot.name === selectedItem.name)
-  const selectedPot = btn.closest('[data-pot]');
+
   return { clickedPotName, selectedItem, index, selectedPot }
 }
 function savePots() {
