@@ -18,22 +18,37 @@ billState.recurringBills = data.transactions.filter((item) => item.recurring);
 billState.paidBills = billState.recurringBills.filter((item) => todaysDate >=  new Date(item.date).getDate() && (new Date(item.date).getMonth() + 1) === currentMonth)
 billState.dueSoonBills = billState.recurringBills.filter((item) => todaysDate < new Date(item.date).getDate() && new Date(item.date).getDate() - todaysDate <= 5)
 billState.upcomingBills = billState.recurringBills.filter((item) => todaysDate <  new Date(item.date).getDate())
+billState.currentMonthBills = billState.recurringBills.forEach(bill => {
+  if (bill.date.includes('2024-07')) {
+    bill.date = bill.date.replace('2024-07', '2024-08')
+  }
+})
+
 billState.currentMonthBills = Object.values(
-	billState.recurringBills.reduce((acc, bill) => {
-		if (!acc[bill.name] || new Date(bill.date) > new Date(acc[bill.name].date)) {
-			acc[bill.name] = bill;
-	      }
-                  return acc;
-	}, {}),
-      billState.recurringBills.forEach(bill => {
-            if (bill.date.includes('2024-07')) {
-                  bill.date = bill.date.replace('2024-07', '2024-08')
-            }
-      }),
+  billState.recurringBills.reduce((acc, bill) => {
+    if (!acc[bill.name] || new Date(bill.date) > new Date(acc[bill.name].date)) {
+      acc[bill.name] = bill
+    }
+    return acc
+  }, {})
+)
 
-);
-
-
+function createBillRowMarkup(item) {
+  const { color, icon } = colorCodeByDate(item.date)
+  return `<div class="bills-row">
+    <div class="image-title">
+      <img src="${item.avatar}" alt="">
+      <h4>${item.name}</h4>
+    </div>
+    <div class="bill-frequency">
+      <small style="color: ${color}">${formatDate(item.date)}</small>
+      <img src="${icon}" alt="">
+    </div>
+    <div class="bill-amount">
+      <h4 style="color: ${color}">${formatAmount(item.amount, false)}</h4>
+    </div>
+  </div>`
+}
 function getBillsSummary(){
       const totalPaidBills =  Math.abs(calculateTotal(billState.paidBills));
       const totalUpcomingBills = parseFloat(Math.abs(calculateTotal(billState.upcomingBills)).toFixed(2));
@@ -77,7 +92,7 @@ function colorCodeByDate(date){
 }
 
 function searchBills(e){
-  const searchResults = billState.recurringBills.filter((item) => item.name.toLowerCase().includes(e.target.value))
+  const searchResults = billState.recurringBills.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase()))
   if (e.target.value !== ''){
     document.querySelector('#bills-table').innerHTML = searchResults.map((item) => {
       const { color, icon } = colorCodeByDate(item.date)
@@ -101,7 +116,7 @@ function searchBills(e){
     document.querySelector('#bills-table').innerHTML = getRecurringBills();
   }
 }
-function sortBills(arr){
+function renderBillRows(arr){
 document.querySelector('#bills-table').innerHTML = 
       arr.map((item) => {
             const { color, icon } = colorCodeByDate(item.date)
@@ -125,54 +140,31 @@ document.querySelector('#bills-table').innerHTML =
 function renderSortedBills(e){
   document.querySelector('[data-dropdown-menu="bills-sort"]').classList.remove('show-dropdown');
   document.querySelector('#sort-btn').innerHTML = `
-                  <span>${e.target.innerText}</span>
+                  <span>${e.target.textContent}</span>
                   <img src="./assets/images/icon-caret-down.svg" alt="">
                 `
   if (e.currentTarget.dataset.sort === 'latest'){
     billState.recurringBills.sort((a,b) => new Date(b.date)  - new Date(a.date))
-    sortBills(billState.recurringBills)
   } else if (e.currentTarget.dataset.sort === 'oldest'){
     billState.recurringBills.sort((a,b) => new Date(a.date)  - new Date(b.date))
-    sortBills(billState.recurringBills)
-
   } else if (e.currentTarget.dataset.sort === 'atoz'){
     billState.recurringBills.sort((a,b) => a.name.localeCompare(b.name))
-    sortBills(billState.recurringBills)
   } else if (e.currentTarget.dataset.sort === 'ztoa'){
     billState.recurringBills.sort((a,b) => b.name.localeCompare(a.name))
-    sortBills(billState.recurringBills)
   } else if (e.currentTarget.dataset.sort === 'highest'){
     billState.recurringBills.sort((a,b) => a.amount - b.amount)
-    sortBills(billState.recurringBills)
   } else if (e.currentTarget.dataset.sort === 'lowest'){
     billState.recurringBills.sort((a,b) => b.amount - a.amount)
-    sortBills(billState.recurringBills)
   } else {
     document.querySelector('#bills-table').innerHTML = getRecurringBills();
   }
+  renderBillRows(billState.recurringBills)
 
 }
 function getRecurringBills(){
       const sortBillsByDate = billState.currentMonthBills.sort((a,b) => new Date(a.date)  - new Date(b.date))
       return `
-      ${sortBillsByDate.map((item) => {
-            const { color, icon } = colorCodeByDate(item.date)
-           return` <div class="bills-row">
-                    <div class="image-title">
-                      <img src="${item.avatar}" alt="">
-                      
-                      <h4>${item.name}</h4>
-                    </div>
-                    <div class="bill-frequency">
-                      <small style="color: ${color}">${formatDate(item.date)}</small>
-                      <img src="${icon}" alt="">
-                    </div>
-                    <div class="bill-amount">
-                      <h4 style="color: ${color}">${formatAmount(item.amount, false)}</h4>
-                    </div>
-                  </div>`
-
-      }).join('')}`
+      ${sortBillsByDate.map((item) => createBillRowMarkup(item)).join('')}`
       
 }
 function renderRecurringBills(){

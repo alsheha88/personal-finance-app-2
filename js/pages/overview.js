@@ -1,6 +1,6 @@
 import { getLocalStorage } from "../localStorage.js";
 import { formatAmount, formatDate, calculateTotal } from "../utility.js";
-import { generatePieChart, calculatePieData, polarToCart, makeSlicePath } from "../components/pieChart.js";
+import { generatePieChart} from "../components/pieChart.js";
 
 const data = await getLocalStorage();
 
@@ -83,29 +83,23 @@ function getBudgets() {
 			theme: budget.theme,
 		};
 	});
-	const totalBudgets = overviewState.budgetsOverview
-		.map((item) => {
-			return item.maximum;
-		})
-		.reduce((acc, currentValue) => {
-			return acc + currentValue;
-		}, 0);
-    const budgetCategory = overviewState.budgetsOverview.map((item) => {return item.category})
-    const budgetTransactions = data.transactions.filter((item) => {return budgetCategory.includes(item.category)});
-    const totalSpentArr = budgetTransactions.reduce((acc, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = [];
-      }
-      acc[item.category].push(item.amount);
-            return acc;
-    }, {})
-    function getTotalForOverview(category){
-    if (totalSpentArr[category]){
-        return Math.abs(totalSpentArr[category].reduce((acc, amount) => acc + amount, 0))
+	const totalBudgets = overviewState.budgetsOverview.reduce((acc, currentValue) => {return acc + currentValue.maximum;}, 0);
+  const overviewBudgetCategories = overviewState.budgetsOverview.map((item) => {return item.category})
+  const budgetTransactions = data.transactions.filter((item) => {return overviewBudgetCategories.includes(item.category)});
+  const totalSpentArr = budgetTransactions.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
     }
-    return 0
+    acc[item.category].push(item.amount);
+          return acc;
+  }, {})
+  function getTotalForOverview(category){
+    if (totalSpentArr[category]){
+      return Math.abs(totalSpentArr[category].reduce((acc, amount) => acc + amount, 0))
   }
-    const spentAmount = Math.abs(Object.values(totalSpentArr).flat().reduce((acc, item) => {return acc + item}, 0))
+  return 0
+  }
+  const spentAmount = Math.abs(Object.values(totalSpentArr).flat().reduce((acc, item) => {return acc + item}, 0))
 
 	return `<div class="test">
                 <div class="pie-chart-wrapper">
@@ -178,8 +172,7 @@ function getBills() {
 			}
 			return acc;
 		}, {}),
-	);
-  overviewState.recurringBillsOverview.filter((item) => {
+	).filter((item) => {
     if (todaysDate >=  new Date(item.date).getDate()){
       paidBillsArr.push(item)
       return  paidBillsArr
@@ -224,12 +217,16 @@ function renderTransactions() {
 function renderBills() {
   document.querySelector(".bills-overview").innerHTML = getBills()
 }
-export function initOverview() {
-  if (!document.getElementById('overview')) return;
-	renderSummary();
+function renderOverview(){
+  renderSummary();
 	renderPots();
 	renderBudgets();
 	renderTransactions();
   renderBills();
+  
+}
+export function initOverview() {
+  if (!document.getElementById('overview')) return;
+	renderOverview()
 }
 

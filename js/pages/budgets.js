@@ -3,12 +3,7 @@ import { initModal } from "../components/modals.js";
 import { calculateTotal, formatAmount, formatDate } from "../utility.js";
 import { getLocalStorage, setLocalStorage } from "../localStorage.js";
 import { generatePieChart } from "../components/pieChart.js";
-import { calculatePieData } from "../components/pieChart.js";
-import { polarToCart } from "../components/pieChart.js";
-import { makeSlicePath } from "../components/pieChart.js";
 
- 
- 
 const data = await getLocalStorage();
 
 const budgetsState = {
@@ -149,7 +144,8 @@ function getBudgetSummary(){
 function getBudgetCard(){
   return `
   ${budgetsState.budgetSummary.map((item) => {
- 
+    const spent = getTotalPerCategory(item.category)
+
     return `  <div class="card budgets-card" data-budget="${item.category}">
             <div class="flex-between">
               <div class="flex gap-200">
@@ -175,21 +171,21 @@ function getBudgetCard(){
             <div class="budgets-progress-wrapper">
               <p>Maximum of ${formatAmount(item.maximum, false)}</p>
               <div class="bar budgets-progress">
-                <div data-progress="budget-progress" class="bar--inner" style="background-color: ${item.theme}; width:${(getTotalPerCategory(item.category)/item.maximum * 100) > 100 ? 100 : (getTotalPerCategory(item.category)/item.maximum * 100)}%"></div>
+                <div data-progress="budget-progress" class="bar--inner" style="background-color: ${item.theme}; width:${(spent/item.maximum * 100) > 100 ? 100 : (spent/item.maximum * 100)}%"></div>
               </div>
               <div class="grid grid-column">
                 <div class="budget-badge">
                   <span class="badge" style="background-color: ${item.theme};"></span>
                   <div>
                     <small>Spent</small>
-                    <h5>${formatAmount(getTotalPerCategory(item.category), false)}</h5>
+                    <h5>${formatAmount(spent, false)}</h5>
                   </div>
                 </div>
                 <div class="budget-badge">
                   <span class="badge" style="background-color: ${item.theme};"></span>
                   <div>
                     <small>Remaining</small>
-                    <h5>${getTotalPerCategory(item.category) > item.maximum ? formatAmount(0, false) : formatAmount(item.maximum - getTotalPerCategory(item.category), false)}</h5>
+                    <h5>${spent > item.maximum ? formatAmount(0, false) : formatAmount(item.maximum - spent, false)}</h5>
                   </div>
                 </div>
               </div>
@@ -217,7 +213,9 @@ function getBudgetCard(){
   }).join('')}
 `
 }
- 
+function saveBudget(){
+  return data.budgets = budgetsState.budgetSummary
+} 
 function createDeleteBudgetModalMarkup(name){
     return `<div class="card modal__card">
       <div class="card-heading">
@@ -235,7 +233,7 @@ function createDeleteBudgetModalMarkup(name){
 function openDeleteBudgetModal(btn){
     const clickedBudgetName = btn.closest('[data-budget]').dataset.budget
     const selectedItem = budgetsState.budgetSummary.find((item) => item.category.trim() === clickedBudgetName)
-    if (selectedItem.category === clickedBudgetName){
+    if (selectedItem){
         budgetsState.selectedBudget = selectedItem;
         document.querySelector('[data-modal="delete-budget-modal"]').innerHTML = createDeleteBudgetModalMarkup(selectedItem.category)
         document.querySelector('[data-modal="delete-budget-modal"]').classList.add('show-modal')
@@ -248,7 +246,7 @@ function openDeleteBudgetModal(btn){
             delete budgetsState.budgetTransactionsAmounts[selectedItem.category]
             delete budgetsState.budgetTransactions[selectedItem.category]
             budgetsState.budgetCategory = budgetsState.budgetCategory.filter(c => c !== selectedItem.category)
-            data.budgets = budgetsState.budgetSummary;
+            saveBudget()
             setLocalStorage(data)
  
             document.querySelector('#budgets-summary').innerHTML = getBudgetSummary()
@@ -265,7 +263,6 @@ function openEditBudgetModal(btn){
         budgetsState.themeSelected = selectedItem.theme
         budgetsState.categorySelected = selectedItem.category
  
-        // pre-populate the edit modal fields
         const editModal = document.querySelector('[data-modal="edit-budget-modal"]')
         editModal.querySelector('[data-dropdown-trigger="edit-budget-category"] span:last-child').textContent = selectedItem.category
         editModal.querySelector('[data-spend="spend-amount-edit"]').value = selectedItem.maximum
@@ -304,46 +301,6 @@ function handleThemeSelection(e){
     }
 }
 
-// function calculatePieData(){
-//     const totalSpending = budgetsState.budgetSummary.reduce((acc, item) => {
-//         return acc + getTotalPerCategory(item.category)
-//     }, 0)
-
-//     return budgetsState.budgetSummary.map((item) => {
-//         return {
-//             value: getTotalPerCategory(item.category),
-//             color: item.theme
-//         }
-//     })
-// }
-
-// function polarToCart(angleDeg){
-//     const rad = (angleDeg - 90) * Math.PI / 180
-//     return [
-//         119.984 + 119.984 * Math.cos(rad),
-//         119.984 + 119.984 * Math.sin(rad)
-//     ]
-// }
-// function makeSlicePath(startAngle, endAngle){
-//     const [x1, y1] = polarToCart(startAngle)
-//     const [x2, y2] = polarToCart(endAngle)
-//     const largeArc = (endAngle - startAngle) > 180 ? 1 : 0
-//     return `M 119.984 119.984 L ${x1} ${y1} A 119.984 119.984 0 ${largeArc} 1 ${x2} ${y2} Z`
-// }
-// function generatePieChart(){
-//     const pieData = calculatePieData()
-//     const total = pieData.reduce((acc, item) => acc + item.value, 0)
-//     let startAngle = 0
-
-//     const paths = pieData.map((item) => {
-//         const endAngle = startAngle + (item.value / total) * 360
-//         const path = makeSlicePath(startAngle, endAngle)
-//         startAngle = endAngle
-//         return `<path d="${path}" fill="${item.color}" />`
-//     }).join('')
-
-//     return paths
-// }
 function renderBudgets(){
     document.querySelector('#budgets-summary').innerHTML = getBudgetSummary();
     document.querySelector('.budgets-card-wrapper').innerHTML = getBudgetCard();
@@ -355,8 +312,8 @@ function renderBudgets(){
         if (editBudgetTriggerBtn) openEditBudgetModal(editBudgetTriggerBtn)
     })
  
-    document.addEventListener('click', handleThemeSelection)
- 
+    document.querySelector('[data-modal="new-budget-modal"]').addEventListener('click', handleThemeSelection)
+    document.querySelector('[data-modal="edit-budget-modal"]').addEventListener('click', handleThemeSelection)
     document.querySelector('[data-modal-trigger="new-budget-modal"]')?.addEventListener('click', () => {
         document.querySelector('[data-modal="new-budget-modal"]').classList.add('show-modal')
         budgetsState.themeSelected = ''
@@ -365,7 +322,6 @@ function renderBudgets(){
         disableUsedThemes()
     })
  
-    // new budget form submission
     document.querySelector('#newBudgetForm').addEventListener('submit', (e) => {
         e.preventDefault()
         const category = budgetsState.categorySelected
@@ -378,12 +334,11 @@ function renderBudgets(){
         budgetsState.budgetSummary.push(newBudget)
         budgetsState.budgetCategory.push(category)
  
-        // filter transactions for new category
         const categoryTransactions = data.transactions.filter(item => item.category === category)
         budgetsState.budgetTransactions[category] = categoryTransactions
         budgetsState.budgetTransactionsAmounts[category] = categoryTransactions.map(item => item.amount)
 
-        data.budgets = budgetsState.budgetSummary;
+        saveBudget()
         setLocalStorage(data)
  
         document.querySelector('#budgets-summary').innerHTML = getBudgetSummary()
@@ -394,7 +349,6 @@ function renderBudgets(){
         initModal()
     })
  
-    // edit budget form submission
     document.querySelector('#editBudgetForm').addEventListener('submit', (e) => {
         e.preventDefault()
         const category = budgetsState.categorySelected || budgetsState.selectedBudget.category
@@ -403,7 +357,6 @@ function renderBudgets(){
  
         const index = budgetsState.budgetSummary.findIndex(item => item.category === budgetsState.selectedBudget.category)
  
-        // if category changed, fetch transactions for new category
         if (category !== budgetsState.selectedBudget.category){
             const newCategoryTransactions = data.transactions.filter(item => item.category === category)
             budgetsState.budgetTransactions[category] = newCategoryTransactions
@@ -415,7 +368,7 @@ function renderBudgets(){
           }
           
           budgetsState.budgetSummary[index] = { category, maximum, theme }
-          data.budgets = budgetsState.budgetSummary;
+          saveBudget()
           setLocalStorage(data)
           
           document.querySelector('#budgets-summary').innerHTML = getBudgetSummary()
