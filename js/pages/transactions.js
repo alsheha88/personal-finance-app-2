@@ -170,6 +170,13 @@ function renderTransactions(){
       document.querySelectorAll('[data-sort]').forEach((btn) => btn.addEventListener('click', sortTransactions))
       document.querySelectorAll('[data-filter]').forEach((btn) => btn.addEventListener('click', filterTransactions))
 
+      const params = new URLSearchParams(window.location.search)
+      const category = params.get('category')
+
+      if (category) {
+            const matchingFilter = document.querySelector(`[data-filter="${category.toLowerCase().replace(/\s+/g, '-')}"]`)
+            if (matchingFilter) matchingFilter.click()
+      }
 
 }
 export function initTransactions() {

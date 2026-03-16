@@ -193,7 +193,7 @@ function getBudgetCard(){
             <div class="budgets-table">
               <div class="flex-between">
                 <h3>Latest Spending</h3>
-                <a class="flex gap-150" href="#">See All <img src="./assets/images/icon-caret-right.svg" alt=""></a>
+                <a class="flex gap-150" href="transactions.html?category=${item.category}">See All <img src="./assets/images/icon-caret-right.svg" alt=""></a>
               </div>
               ${budgetsState.budgetTransactions[item.category] ? budgetsState.budgetTransactions[item.category].slice(0,3).map((transaction) => {
                 return `<div class="budgets-row">

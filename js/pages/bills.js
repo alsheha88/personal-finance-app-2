@@ -94,48 +94,14 @@ function colorCodeByDate(date){
 function searchBills(e){
   const searchResults = billState.recurringBills.filter((item) => item.name.toLowerCase().includes(e.target.value.toLowerCase()))
   if (e.target.value !== ''){
-    document.querySelector('#bills-table').innerHTML = searchResults.map((item) => {
-      const { color, icon } = colorCodeByDate(item.date)
-
-      return ` <div class="bills-row">
-          <div class="image-title">
-            <img src="${item.avatar}" alt="">
-            
-            <h4>${item.name}</h4>
-          </div>
-          <div class="bill-frequency">
-            <small style="color: ${color}">${formatDate(item.date)}</small>
-            <img src="${icon}" alt="">
-          </div>
-          <div class="bill-amount">
-            <h4 style="color: ${color}">${formatAmount(item.amount, false)}</h4>
-          </div>
-        </div>`
-      }).join('')  
+    document.querySelector('#bills-table').innerHTML = searchResults.map((item) =>createBillRowMarkup(item) ).join('')  
   } else {
     document.querySelector('#bills-table').innerHTML = getRecurringBills();
   }
 }
 function renderBillRows(arr){
 document.querySelector('#bills-table').innerHTML = 
-      arr.map((item) => {
-            const { color, icon } = colorCodeByDate(item.date)
-           return` <div class="bills-row">
-                    <div class="image-title">
-                      <img src="${item.avatar}" alt="">
-                      
-                      <h4>${item.name}</h4>
-                    </div>
-                    <div class="bill-frequency">
-                      <small style="color: ${color}">${formatDate(item.date)}</small>
-                      <img src="${icon}" alt="">
-                    </div>
-                    <div class="bill-amount">
-                      <h4 style="color: ${color}">${formatAmount(item.amount, false)}</h4>
-                    </div>
-                  </div>`
-
-      }).join('')
+      arr.map((item) => createBillRowMarkup(item)).join('')
 }
 function renderSortedBills(e){
   document.querySelector('[data-dropdown-menu="bills-sort"]').classList.remove('show-dropdown');
